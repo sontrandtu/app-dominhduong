@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "542691837556",
+    "project_id": "dominhduong-app",
+    "storage_bucket": "dominhduong-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542691837556:android:be9c1ed705ee99448c7321",
+        "android_client_info": {
+          "package_name": "vn.weupgroup.dmd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542691837556-6tdnrearphh6l50qu5k2frha06psflvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQkgJLyCNqNPWTU2VXy3usxem2RMVErNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542691837556-6tdnrearphh6l50qu5k2frha06psflvt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "542691837556-9pvjibgogpor10slg5qk1bbsnl4lkg04.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.weupgroup.dmd",
+                "app_store_id": "1562625189"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

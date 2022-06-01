@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>542691837556-9pvjibgogpor10slg5qk1bbsnl4lkg04.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.542691837556-9pvjibgogpor10slg5qk1bbsnl4lkg04</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCukHbS28Y97TsglgFRX-H5ugeXzjzTTk4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>542691837556</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vn.weupgroup.dmd</string>
+	<key>PROJECT_ID</key>
+	<string>dominhduong-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dominhduong-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:542691837556:ios:a190c65bf7206e428c7321</string>
+</dict>
+</plist>

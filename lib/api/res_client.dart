@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dominhduong/api/response_model/list_response.dart';
-import 'package:dominhduong/api/response_model/login_doctor_response.dart';
 import 'package:dominhduong/api/response_model/login_response.dart';
 import 'package:dominhduong/app_config.dart';
 import 'package:dominhduong/model/article_model.dart';

@@ -53,7 +53,6 @@ class _OrderMedicinePageState extends State<OrderMedicinePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Chọn khách hàng muốn mua', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Roboto', color: AppColors.textBlack)),
                     Form(
                       key: _orderKey,
                       child: Column(

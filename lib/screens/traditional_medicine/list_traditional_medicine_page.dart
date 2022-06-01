@@ -52,9 +52,7 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                     _refreshController.loadComplete();
                   });
                 },
-                child: viewModel.showEmptyLayout
-                    ? const NoResultPage()
-                    : SingleChildScrollView(
+                child: viewModel.showEmptyLayout ? const NoResultPage() : SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   physics: const ClampingScrollPhysics(),
                   padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 20),
@@ -86,7 +84,7 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                         },
                         child: Container(
                           width: 382,
-                          height: 340,
+                          height: 280,
                           decoration: BoxDecoration(
                             color: AppColors.backgroundWhite,
                             borderRadius: BorderRadius.circular(8.0),
@@ -101,54 +99,26 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      firstItem?.name?.toUpperCase() ?? '',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.secondaryColor, height: 1.5),
-                                    ),
-                                    const SizedBox(height: 6.0),
-                                    Text(
-                                      firstItem?.description ?? '',
-                                      style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: AppColors.textBlack, height: 1.3),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 9.25),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16.13),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.orderMedicinePage);
-                                            },
-                                            child: Container(
-                                              width: 144,
-                                              height: 32,
-                                              decoration: BoxDecoration(color: AppColors.secondaryColor, borderRadius: BorderRadius.circular(8)),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Image.asset(Res.ic_calendar_outline, width: 23.86, height: 24,),
-                                                  const SizedBox(width: 5.64),
-                                                  const Text(
-                                                      'Đặt mua thuốc',
-                                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textWhite)
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 114,
-                                          ),
-                                          SvgPicture.asset(firstItem?.rating != 0 ? Res.ic_star : Res.ic_star_outline, width: 20, color: AppColors.primaryColor),
                                           Text(
-                                            firstItem?.rating.toString() ?? '',
-                                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                                            firstItem?.name?.toUpperCase() ?? '',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.secondaryColor, height: 1.5),
+                                          ),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(firstItem?.rating != 0 ? Res.ic_star : Res.ic_star_outline, width: 20, color: AppColors.primaryColor),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                firstItem?.rating.toString() ?? '',
+                                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -160,7 +130,6 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
                       GridView.builder(
                         shrinkWrap: true,
                         controller: scrollController,
@@ -168,7 +137,7 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                           crossAxisCount: 2,
                           mainAxisSpacing: 16,
                           crossAxisSpacing: 16.54,
-                          childAspectRatio: 150 / 180,
+                          childAspectRatio: 1,
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           final medicine = viewModel.data[index + 1];
@@ -177,7 +146,7 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                               Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.traditionalMedicineDetailPage, arguments: medicine.id);
                             },
                             child: Container(
-                              height: 230,
+                              height: 130,
                               width: 180,
                               decoration: BoxDecoration(color: AppColors.backgroundWhite,
                                 borderRadius: BorderRadius.circular(8.0),
@@ -187,7 +156,6 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                                   CustomNetworkImage(url: medicine.imageUrl, width: 183, height: 96, circular: 8.0, backgroundColor: Colors.grey.withOpacity(0.5), isPlaceholderImage: false),
                                   Container(
                                     width: double.infinity,
-                                    height: 95,
                                     padding: const EdgeInsets.only(left: 12, right: 10, top: 12),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,26 +168,6 @@ class _ListTraditionalMedicinePageState extends State<ListTraditionalMedicinePag
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         const SizedBox(height: 10),
-                                        GestureDetector(
-                                          onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.orderMedicinePage),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 32,
-                                            decoration: BoxDecoration(color: AppColors.secondaryColor, borderRadius: BorderRadius.circular(8)),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(Res.ic_calendar_outline, height: 19.26, width: 19.15,),
-                                                const SizedBox(width: 6.87),
-                                                const Text(
-                                                    'Đặt mua thuốc',
-                                                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.textWhite)
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),

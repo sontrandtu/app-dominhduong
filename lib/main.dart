@@ -7,12 +7,9 @@ import 'package:dominhduong/repository/article_repository.dart';
 import 'package:dominhduong/repository/booking_repository.dart';
 import 'package:dominhduong/repository/category_repository.dart';
 import 'package:dominhduong/repository/doctor_repository.dart';
-import 'package:dominhduong/repository/examination_card_repository.dart';
-import 'package:dominhduong/repository/firebase_repository.dart';
 import 'package:dominhduong/repository/home_repository.dart';
 import 'package:dominhduong/repository/hotline_repository.dart';
 import 'package:dominhduong/repository/location_repository.dart';
-import 'package:dominhduong/repository/order_repository.dart';
 import 'package:dominhduong/repository/sign_in_repository.dart';
 import 'package:dominhduong/repository/user_repository.dart';
 import 'package:dominhduong/repository/widget_repository.dart';
@@ -24,8 +21,6 @@ import 'package:dominhduong/screens/doctor/doctor_detail_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_view_model.dart';
 import 'package:dominhduong/screens/doctor/list_doctor_page.dart';
 import 'package:dominhduong/screens/doctor/list_doctor_view_model.dart';
-import 'package:dominhduong/screens/examination_card/list_examination_card_page.dart';
-import 'package:dominhduong/screens/examination_card/list_examination_card_view_model.dart';
 import 'package:dominhduong/screens/history/list_history_page.dart';
 import 'package:dominhduong/screens/live_well/list_live_well_page.dart';
 import 'package:dominhduong/screens/live_well/list_live_well_view_model.dart';
@@ -37,14 +32,6 @@ import 'package:dominhduong/screens/news/list_news_page.dart';
 import 'package:dominhduong/screens/news/list_news_view_model.dart';
 import 'package:dominhduong/screens/news/news_detail_page.dart';
 import 'package:dominhduong/screens/news/news_detail_view_model.dart';
-import 'package:dominhduong/screens/order/list_order_medicine_page.dart';
-import 'package:dominhduong/screens/order/list_order_medicine_view_model.dart';
-import 'package:dominhduong/screens/order/order/full_photo_page.dart';
-import 'package:dominhduong/screens/order/order/list_order_page.dart';
-import 'package:dominhduong/screens/order/order/list_order_view_model.dart';
-import 'package:dominhduong/screens/order_medicine/order_medicine_confirm_page.dart';
-import 'package:dominhduong/screens/order_medicine/order_medicine_page.dart';
-import 'package:dominhduong/screens/order_medicine/order_medicine_view_model.dart';
 import 'package:dominhduong/screens/pages/medical_examination_guide_page.dart';
 import 'package:dominhduong/screens/pages/medical_examination_guide_view_model.dart';
 import 'package:dominhduong/screens/pages/single_page.dart';
@@ -74,7 +61,6 @@ import 'package:dominhduong/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -93,18 +79,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await PreferenceManager.init();
-  channel = const AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    importance: Importance.max,
-  );
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
-  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
 
   String? token = PreferenceManager.getValue<String>(PreferenceManager.KEY_ACCESS_TOKEN);
   String? userId = PreferenceManager.getValue<String>(PreferenceManager.KEY_USER_ID);
@@ -120,8 +94,6 @@ void main() async {
             Provider(create: (_) => CategoryRepository()),
             Provider(create: (_) => ArticleRepository()),
             Provider(create: (_) => DoctorRepository()),
-            Provider(create: (_) => OrderRepository()),
-            Provider(create: (_) => ExaminationCardRepository()),
             Provider(create: (_) => UserRepository()),
             Provider(create: (_) => YoutubeRepository()),
             Provider(create: (_) => LocationRepository()),
@@ -252,7 +224,7 @@ class MyApp extends StatelessWidget {
         return ChangeNotifierProvider(create: (_) => DoctorDetailViewModel(repo: context.read<DoctorRepository>(), doctorId: doctorId), child: const DoctorDetailPage());
       },
       PageRoutes.listLiveWellPage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => ListLiveWellViewModel(repo: context.read(), userRepo: context.read<FirebaseRepository>()), child: const ListLiveWellPage());
+        return ChangeNotifierProvider(create: (_) => ListLiveWellViewModel(repo: context.read(), userRepo: context.read<UserRepository>()), child: const ListLiveWellPage());
       },
       PageRoutes.liveWellDetailPage: (BuildContext context) {
         final articleId = ModalRoute.of(context)?.settings.arguments as int;
@@ -291,17 +263,6 @@ class MyApp extends StatelessWidget {
         final articleId = ModalRoute.of(context)?.settings.arguments as int;
         return ChangeNotifierProvider(create: (_) => ProductDetailViewModel(repo: context.read<ArticleRepository>(), articleId: articleId), child: const ProductDetailPage());
       },
-      PageRoutes.listOrderPage: (BuildContext context) {
-        final arguments = ModalRoute.of(context)?.settings.arguments as List;
-        return ChangeNotifierProvider(create: (_) => ListOrderViewModel(context.read(), id: arguments[0]), child: ListOrderPage(detailId: arguments[1] ?? 0));
-      },
-      PageRoutes.listOrderMedicinePage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => ListOrderMedicineViewModel(repo: context.read()), child: const ListOrderMedicinePage());
-      },
-      PageRoutes.listExaminationCardPage: (BuildContext context) {
-        final id = ModalRoute.of(context)?.settings.arguments as int;
-        return ChangeNotifierProvider(create: (_) => ListExaminationCardViewModel(context.read()), child: ListExaminationCardPage(detailId: id));
-      },
       PageRoutes.historyPage: (BuildContext context) {
         return ChangeNotifierProvider(
             create: (_) => historyVM,
@@ -323,19 +284,6 @@ class MyApp extends StatelessWidget {
       PageRoutes.userInfoPage: (BuildContext context) {
         return ChangeNotifierProvider(create: (_) => UserInfoViewModel(userRepo: context.read<UserRepository>()), child: const UserInfoPage());
       },
-      PageRoutes.orderMedicinePage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => OrderMedicineViewModel(orderRepo: context.watch(), homeRepo: context.read(), userRepo: context.read<UserRepository>()), child: const OrderMedicinePage());
-      },
-      PageRoutes.orderMedicineConfirmPage: (BuildContext context) {
-        final List<dynamic> argument =
-        ModalRoute.of(context)?.settings.arguments as List<dynamic>;
-        return ChangeNotifierProvider(create: (_) => OrderMedicineViewModel(orderRepo: context.watch(), homeRepo: context.read(), userRepo: context.read<UserRepository>(), orderMedicine: argument[0], selectedImage: argument[1]), child: const OrderMedicineConfirmPage());
-      },
-      PageRoutes.imageFull: (BuildContext context) {
-        final String url = ModalRoute.of(context)?.settings.arguments as String;
-        return FullPhotoPage(url: url);
-      },
-
     };
   }
 }

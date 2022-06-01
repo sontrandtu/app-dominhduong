@@ -1,6 +1,5 @@
 import 'package:dominhduong/screens/history/history_detail_page.dart';
 import 'package:dominhduong/screens/history/list_history_view_model.dart';
-import 'package:dominhduong/screens/order/order_medicine_detail_page.dart';
 import 'package:dominhduong/screens/pages/emply_history_page.dart';
 import 'package:dominhduong/widgets/appbar/appbar_comp.dart';
 import 'package:dominhduong/widgets/cover_loading.dart';
@@ -131,3 +130,44 @@ class _ListHistoryPageState extends State<ListHistoryPage> with AutomaticKeepAli
   @override
   bool get wantKeepAlive => true;
 }
+
+class LineCard extends StatelessWidget {
+  final String? title;
+  final String? content;
+  const LineCard({
+    Key? key,
+    this.title,
+    this.content,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: RichText(
+        text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14,
+              fontFamily: 'Roboto',
+            ),
+            children: [
+              TextSpan(
+                  text: title!,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto',
+                      fontSize: 14)),
+              TextSpan(
+                  text: content!,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto',
+                      fontSize: 14))
+            ]),
+      ),
+    );
+  }
+}
+

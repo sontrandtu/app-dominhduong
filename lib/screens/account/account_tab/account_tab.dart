@@ -121,14 +121,6 @@ class _AccountTabState extends State<AccountTab> with AutomaticKeepAliveClientMi
                       },
                     ),
                     ProfileItem(
-                      head: Icons.fact_check_outlined,
-                      title: r'Hướng dẫn đặt lịch & Đặt thuốc',
-                      tail: null,
-                      nav: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.medicalExaminationGuidePage);
-                      },
-                    ),
-                    ProfileItem(
                       head: Icons.bookmark_added_outlined,
                       title: 'Chủ đề bạn quan tâm',
                       tail: Icons.arrow_forward_ios_outlined,
@@ -142,30 +134,6 @@ class _AccountTabState extends State<AccountTab> with AutomaticKeepAliveClientMi
                       tail: Icons.arrow_forward_ios_outlined,
                       nav: () {
                         Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.historyPage);
-                      },
-                    ),
-                    ProfileItem(
-                      head: Icons.checklist_outlined,
-                      title: r'Lịch sử đặt thuốc',
-                      tail: Icons.arrow_forward_ios_outlined,
-                      nav: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.listOrderMedicinePage, arguments: [0, 0]);
-                      },
-                    ),
-                    ProfileItem(
-                      head: Icons.checklist_outlined,
-                      title: r'thông tin đơn hàng',
-                      tail: Icons.arrow_forward_ios_outlined,
-                      nav: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.listOrderPage, arguments: [0, 0]);
-                      },
-                    ),
-                    ProfileItem(
-                      head: Icons.checklist_outlined,
-                      title: r'Thông tin phiếu khám',
-                      tail: Icons.arrow_forward_ios_outlined,
-                      nav: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.listExaminationCardPage, arguments: 0);
                       },
                     ),
                     Container(height: 5, color: AppColors.backgroundWhite),

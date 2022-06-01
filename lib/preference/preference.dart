@@ -57,7 +57,6 @@ class PreferenceManager {
 
   static logOut() async {
     await _prefsInstance?.setString(KEY_CURRENT_USER, '');
-    await _prefsInstance?.setString(KEY_FCM_TOKEN, '');
     await _prefsInstance?.setString(KEY_ACCESS_TOKEN, '');
     await _prefsInstance?.setString(KEY_USER_ID, '');
     await _prefsInstance?.setString(KEY_PHYSICIAN_ID, '');
@@ -70,5 +69,4 @@ class PreferenceManager {
   static const String KEY_ACCESS_TOKEN = 'access_token';
   static const String KEY_SAVED_TOKEN = 'article_saved';
   static const String KEY_WATCHED = 'watched';
-  static const String KEY_FCM_TOKEN = 'fcm_token';
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dominhduong/base/app_provider.dart';
 import 'package:dominhduong/enum/bottom_bar_type.dart';
 import 'package:dominhduong/page_routes.dart';
-import 'package:dominhduong/preference/preference.dart';
 import 'package:dominhduong/res.dart';
 import 'package:dominhduong/screens/account/account_tab/account_tab.dart';
 import 'package:dominhduong/screens/account/account_tab/account_tab_view_model.dart';
@@ -53,16 +52,6 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
       await onPressedNotification();
     }
 
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null && message is RemoteMessage) {
-        actionWhenReceiverNotification(message);
-      }
-    });
-
-    FirebaseMessaging.instance.getToken().then((value) async {
-      await PreferenceManager.setValue<String>(PreferenceManager.KEY_FCM_TOKEN, value!);
-      context.read<MainViewModel>().pushFCMTokenToBackend(value);
-    });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) async {
       RemoteNotification? notification = message?.notification;
@@ -371,11 +360,9 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      viewModel.updateOnlineStatus(true);
       return;
     }
     if (state == AppLifecycleState.paused) {
-      viewModel.updateOnlineStatus(false);
       return;
     }
   }

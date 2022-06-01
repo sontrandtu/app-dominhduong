@@ -5,8 +5,6 @@ import 'package:dominhduong/base/loadmore_mixin.dart';
 import 'package:dominhduong/repository/article_repository.dart';
 import 'package:dominhduong/repository/user_repository.dart';
 import '../../model/article_model.dart';
-import '../../preference/preference.dart';
-import '../../repository/firebase_repository.dart';
 
 class ListContentLiveWellViewModel extends BaseViewModel with LoadMoreMixin<ArticleModel>{
   final ArticleRepository repo;

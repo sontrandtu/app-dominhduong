@@ -1,7 +1,6 @@
 import 'package:dominhduong/base/base_view_model.dart';
 import 'package:dominhduong/enum/slug.dart';
 import 'package:dominhduong/model/category_model.dart';
-import 'package:dominhduong/repository/firebase_repository.dart';
 import 'package:flutter/cupertino.dart';
 import '../../repository/user_repository.dart';
 import '../../utils/toast_utils.dart';

@@ -9,11 +9,8 @@ import 'package:dominhduong/model/booking_type_model.dart';
 import 'package:dominhduong/model/branch_model.dart';
 import 'package:dominhduong/model/category_model.dart';
 import 'package:dominhduong/model/company_model.dart';
-import 'package:dominhduong/model/examination_card_model.dart';
 import 'package:dominhduong/model/history_model.dart';
 import 'package:dominhduong/model/location_model.dart';
-import 'package:dominhduong/model/order_medicine_model.dart';
-import 'package:dominhduong/model/order_model.dart';
 import 'package:dominhduong/model/timeslot_model.dart';
 import 'package:dominhduong/model/doctor_model.dart';
 import 'package:dominhduong/model/user/user_info_model.dart';
@@ -118,43 +115,6 @@ abstract class RestClient {
   //====================== Location Api =====================//
 
   //======================= Order Api ======================//
-  @GET('/order-medicine-list')
-  Future<HttpResponse<ListResponse<List<OrderMedicineModel>>>> getListOrderMedicine({
-    @Query('page') int? page,
-    @Query('limit') int? limit
-  });
-
-  @MultiPart()
-  @POST('/order-medicine')
-  Future<HttpResponse<OrderMedicineModel>> createOrderMedicine({
-    @Part(name: 'category_id') int? categoryId,
-    @Part(name: 'quantity') int? quantity,
-    @Part(name: 'province_id') int? provinceId,
-    @Part(name: 'district_id') int? districtId,
-    @Part(name: 'ward_id') int? wardId,
-    @Part(name: 'is_have_prescription') bool? isHavePrescription,
-    @Part(name: 'state') String? state,
-    @Part(name: 'receiver_name') String? receiverName,
-    @Part(name: 'receiver_phone') String? receiverPhone,
-    @Part(name: 'payment_type') String? paymentType,
-    @Part(name: 'address') String? address,
-    @Part(name: 'note') String? note,
-    @Part(name: 'delivery_note') String? deliveryNote,
-    @Part(name: 'prescription_image') File? prescriptionImage,
-  });
-
-  @GET('/orders')
-  Future<HttpResponse<ListResponse<List<OrderModel>>>> getListOder({
-    @Query('page') int? page,
-    @Query('limit') int? limit
-  });
-
-  @GET('/examination-card')
-  Future<HttpResponse<ListResponse<List<ExaminationCardModel>>>> getListExaminationCard({
-    @Query('page') int? page,
-    @Query('limit') int? limit
-  });
-  //======================= Order Api ======================//
 
   //====================== Booking Api =====================//
   @MultiPart()
@@ -243,11 +203,6 @@ abstract class RestClient {
   //====================== Article Api =====================//
 
   //====================== Notify Api =====================//
-  @MultiPart()
-  @POST('/registration-device-token')
-  Future<HttpResponse<dynamic>> registerFCMToken({
-    @Part(name: 'registration_id') String? fcmToken
-  });
 
   @PUT('/accounts')
   Future<HttpResponse<UserInfoModel>> registerTopic({

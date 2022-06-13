@@ -10,8 +10,7 @@ import '../../widgets/custom_cached_network_image_ratio.dart';
 import '../../widgets/no_result_page.dart';
 
 class ListContentLiveWellPage extends StatefulWidget {
-  final Function(ListContentLiveWellViewModel, RefreshController)? modelCallback;
-  const ListContentLiveWellPage({Key? key, this.modelCallback}) : super(key: key);
+  const ListContentLiveWellPage({Key? key}) : super(key: key);
 
   @override
   _ListContentLiveWellPageState createState() => _ListContentLiveWellPageState();
@@ -24,9 +23,6 @@ class _ListContentLiveWellPageState extends State<ListContentLiveWellPage> {
   @override
   void initState() {
     super.initState();
-
-    final viewModel = context.read<ListContentLiveWellViewModel>();
-    widget.modelCallback?.call(viewModel, _refreshController);
   }
 
   @override

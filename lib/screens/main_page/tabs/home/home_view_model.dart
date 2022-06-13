@@ -6,8 +6,6 @@ import 'package:dominhduong/repository/home_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../preference/preference.dart';
-
 class HomeViewModel extends BaseViewModel {
   List<String> slideImages = [];
   List<DoctorModel> doctors = [];
@@ -15,7 +13,6 @@ class HomeViewModel extends BaseViewModel {
   List<ArticleModel> medicineServices = [];
   List<ArticleModel> medicines = [];
   List<ArticleModel> news = [];
-  List<ArticleModel> products = [];
   int newsId = 0;
 
   final HomeRepository homeRepo;
@@ -46,15 +43,6 @@ class HomeViewModel extends BaseViewModel {
     homeRepo.getWidgetsBySlug(Slug.homeServices).then((value) {
       if (value.isOk) {
         medicineServices = value.data?.articles ?? [];
-      } else {
-        errorCallback?.call(value.message);
-      }
-      notifyListeners();
-    });
-
-    homeRepo.getWidgetsBySlug(Slug.homeProduct).then((value) {
-      if (value.isOk) {
-        products = value.data?.articles ?? [];
       } else {
         errorCallback?.call(value.message);
       }

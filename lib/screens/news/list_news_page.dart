@@ -1,6 +1,5 @@
 import 'package:dominhduong/model/article_model.dart';
 import 'package:dominhduong/theme/colors.dart';
-import 'package:dominhduong/utils/extensions.dart';
 import 'package:dominhduong/widgets/appbar/appbar_comp.dart';
 import 'package:dominhduong/widgets/cover_loading.dart';
 import 'package:dominhduong/widgets/no_result_page.dart';
@@ -33,29 +32,6 @@ class _ListNewsPageState extends State<ListNewsPage> {
         favorite: true,
         isFavoriteActive: viewModel.isFavoriteActive,
         title: "Tin tức - sự kiện".toUpperCase(),
-        searchCallback: (keyword) {
-          var oldKeyword = viewModel.keyword;
-          viewModel.keyword = keyword;
-          if(viewModel.keyword != '' || (oldKeyword != '' && keyword == '')){
-            viewModel.refreshData(
-              needShowLoading: true,
-              onLoadedCallback: () {
-                _refreshController.refreshCompleted();
-              },
-            );
-          }
-        },
-        favoriteCallback: (status) {
-          viewModel.registerTopic(type: status ? 'add' : 'remove', successCallback: (value) {
-            context.showMessage((status ? 'Theo dõi' : 'Bỏ theo dõi') + ' chuyên mục thành công!');
-
-            setState(() {
-              viewModel.isFavoriteActive = status;
-            });
-          }, errorCallback: (error) {
-            context.showMessage((status ? 'Theo dõi' : 'Bỏ theo dõi') + ' chuyên mục thất bại!', type: MessageType.error);
-          });
-        },
       ),
       backgroundColor: const Color(0xFFFAFAFA),
       body: SafeArea(

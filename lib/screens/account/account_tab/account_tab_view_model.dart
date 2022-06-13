@@ -2,48 +2,83 @@ import 'dart:io';
 import 'package:dominhduong/base/base_view_model.dart';
 import 'package:dominhduong/model/user/user_info_model.dart';
 import 'package:dominhduong/repository/user_repository.dart';
-import '../../../preference/preference.dart';
 
-class AccountTabViewModel extends BaseViewModel {
-  final UserRepository repo;
-  UserInfoModel? userInfoModel;
+import '../../../utils/toast_utils.dart';
 
-  AccountTabViewModel(this.repo,) : super(repo) {
-    getAccountInfo();
+class AccountTabViewModel extends BaseViewModel{
+  final UserRepository userRepo;
+  bool loadFistTime = true;
+  bool isProvince = false;
+  bool isDistrict = false;
+  bool isWard = false;
+  UserInfoModel? userInfoModel = UserInfoModel();
+  File? selectedImageFile;
+  List<String> genders = ['Nam', 'Nữ'];
+  int? initGender;
+
+  AccountTabViewModel({required this.userRepo}) : super(userRepo){
+    loadData();
   }
 
-  updateAvatar(File image, {SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
-      setLoading = true;
-      final response = await repo.updateAvatar(file: image);
-      if (response.isOk) {
-        userInfoModel = response.data;
-        successCallback?.call(response.data);
-      } else {
-        errorCallback?.call(response.message);
-      }
-      setLoading = false;
+  loadData() async {
+    setLoading = true;
+    await getAccountInfo();
+    setLoading = false;
+  }
+
+  updateBirthday(String date){
+    userInfoModel?.birthday = date;
+    notifyListeners();
+  }
+
+  checkGender(String? gender){
+    if(gender == 'male'){
+      initGender = 0;
+    } else if(gender == 'female'){
+      initGender = 1;
+    } else{
+      initGender = null;
+    }
+  }
+
+  void updateGender(String? gender){
+    userInfoModel?.gender = gender;
+    notifyListeners();
+  }
+
+  bool isValidate(dynamic input){
+    if(input == null || input == 0){
+      return true;
+    }
+    return false;
   }
 
   getAccountInfo() async {
     setLoading = true;
-    final response = await repo.getUserInfo();
-    if (response.isOk) {
-      userInfoModel = response.data;
+    final response = await userRepo.getUserInfo().catchError((onError) {setLoading = false;});
+    if(response.isOk){
+      userInfoModel = response.data!;
+      checkGender(userInfoModel?.gender);
     }
-    notifyListeners();
     setLoading = false;
   }
 
-  logOut({SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
+  updateUserInfo({SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
     setLoading = true;
-    final response = await repo.logOut();
+    final response = await userRepo.updateUserInfo(image: selectedImageFile, userInfoModel: userInfoModel!).catchError((onError) {
+      setLoading = false;
+      showMessage('Có lỗi hệ thống xảy ra!');
+    });
     if (response.isOk) {
-      successCallback?.call(response.data);
+      userInfoModel = response.data;
+      successCallback?.call(userInfoModel);
     } else {
       errorCallback?.call(response.message);
     }
     setLoading = false;
   }
+
+  updateData(){
+    notifyListeners();
+  }
 }
-
-

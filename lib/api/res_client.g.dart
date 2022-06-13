@@ -609,13 +609,9 @@ class _RestClient implements RestClient {
 
   @override
   Future<HttpResponse<ListResponse<List<ArticleModel>>>> getArticleByType(
-      {type, page, limit, keyword}) async {
+      {type, page, limit}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'page': page,
-      r'limit': limit,
-      r'keyword': keyword
-    };
+    final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -657,48 +653,6 @@ class _RestClient implements RestClient {
         (json) => (json as List<dynamic>)
             .map<ArticleModel>(
                 (i) => ArticleModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<UserInfoModel>> registerTopic(
-      {topicOfInterestIds}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = FormData();
-    topicOfInterestIds?.forEach((i) {
-      _data.fields.add(MapEntry('topic_of_interest_ids', i));
-    });
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<UserInfoModel>>(
-            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/accounts',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserInfoModel.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<CategoryModel>>>> getListTopic() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<CategoryModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/notify-topics',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<CategoryModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<CategoryModel>(
-                (i) => CategoryModel.fromJson(i as Map<String, dynamic>))
             .toList());
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

@@ -189,7 +189,6 @@ abstract class RestClient {
     @Path('type') String? type,
     @Query('page') int? page,
     @Query('limit') int? limit,
-    @Query('keyword') String? keyword
   });
 
   @GET('/categories/{id}/articles')
@@ -201,17 +200,6 @@ abstract class RestClient {
     @Query('keyword') String? keyword
   });
   //====================== Article Api =====================//
-
-  //====================== Notify Api =====================//
-
-  @PUT('/accounts')
-  Future<HttpResponse<UserInfoModel>> registerTopic({
-    @Part(name: "topic_of_interest_ids") List<String>? topicOfInterestIds
-  });
-
-  @GET('/notify-topics')
-  Future<HttpResponse<ListResponse<List<CategoryModel>>>> getListTopic();
-  //====================== Notify Api =====================//
 
   //====================== Videos Api =====================//
   @GET('/search?')

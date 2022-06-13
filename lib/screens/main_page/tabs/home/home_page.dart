@@ -2,7 +2,6 @@ import 'package:dominhduong/screens/main_page/tabs/home/home_view_model.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/doctor_layout.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/news_layout.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/news_topic_layout.dart';
-import 'package:dominhduong/screens/main_page/tabs/home/widgets/product_layout.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/services_category_layout.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/slider_layout.dart';
 import 'package:dominhduong/screens/main_page/tabs/home/widgets/traditional_medicine_layout.dart';
@@ -53,7 +52,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin,
                       // const CategoriesLayout(),
                       ServicesCategoryLayout(articles: viewModel.medicineServices),
                       TraditionalMedicineLayout(medicines: viewModel.medicines),
-                      ProductLayout(products: viewModel.products),
                       DoctorLayout(doctors: viewModel.doctors),
                       NewsLayout(newArticles: viewModel.news, newsId: viewModel.newsId),
                       NewsTopicLayout(newArticles: viewModel.topicsOfInterest),

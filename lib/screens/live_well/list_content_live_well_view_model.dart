@@ -47,25 +47,4 @@ class ListContentLiveWellViewModel extends BaseViewModel with LoadMoreMixin<Arti
       }
     }
   }
-
-  registerTopic({required String type, SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
-    List<String> ids = topicIds.map((item) => item.toString()).toList();
-    var cId = categoryId.toString();
-
-    if(type == 'remove') {
-      ids.remove(cId);
-      if(ids.isEmpty) {
-        ids.add('0');
-      }
-    }
-
-    if(type == 'add' && !ids.contains(cId)) ids.add(cId);
-
-    final response = await userRepo.registerTopic(ids);
-    if (response.isOk) {
-      successCallback?.call(null);
-    } else {
-      errorCallback?.call(response.message);
-    }
-  }
 }

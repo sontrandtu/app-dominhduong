@@ -14,7 +14,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../page_routes.dart';
 import '../../widgets/appbar/appbar_comp.dart';
 import '../../widgets/fields/dropdown/custom_dropdown_button_default.dart';
 export 'package:dominhduong/utils/extensions/string_extension.dart';
@@ -378,7 +377,13 @@ class _BookingPageState extends State<BookingPage> {
                                         child: ElevatedButton(
                                             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color(0xFF3B2313))),
                                             onPressed: () {
-                                              if (_bookingFormKey.currentState!.validate() && viewModel.bookingModel.branchId != null && viewModel.bookingModel.doctorId != null && viewModel.bookingModel.typeId != null && viewModel.bookingModel.timeSlot != 0) {
+                                              if (_bookingFormKey.currentState!.validate()
+                                                  && viewModel.bookingModel.branchId != null
+                                                  && viewModel.bookingModel.doctorId != null
+                                                  && viewModel.bookingModel.typeId != null
+                                                  && viewModel.bookingModel.timeSlot != 0
+                                                  && viewModel.bookingModel.timeSlot != null
+                                              ) {
                                                 viewModel.bookingPostData(successCallback: (value) {
                                                   setState((){
                                                     isSelectedType = false;
@@ -387,20 +392,10 @@ class _BookingPageState extends State<BookingPage> {
                                                     _reason.clear();
                                                     controller.jumpTo(0.0);
                                                   });
-                                                  showDefaultDialog(
-                                                    context,
-                                                    title: "Thông báo!",
-                                                    content: "Đặt lịch khám thành công! Xem lịch sử đặt lịch ngay bây giờ?",
-                                                    onPressNo: () {
-                                                      Navigator.of(context).pop();
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    onPressYes: () async {
-                                                      await Navigator.of(context, rootNavigator: true).popAndPushNamed(PageRoutes.historyPage).then((value) {
-                                                        Navigator.of(context).pop();
-                                                      });
-                                                    },
-                                                  );
+                                                  showAlertSuccessBooking(context,() {
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pop();
+                                                  },);
                                                   context.hideKeyboard();
                                                   // Reset data trang đặt lịch
                                                   Provider.of<ListHistoryViewModel>(context, listen: false).refreshData(needShowLoading: false);

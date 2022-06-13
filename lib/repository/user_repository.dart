@@ -21,10 +21,6 @@ class UserRepository extends Repository {
     return await apiClient!.getWidgetsBySlug(slug: slug.stringValue).wrap();
   }
 
-  Future<ApiResponse<UserInfoModel>> registerTopic(List<String> topicOfInterestIds) async{
-    return await apiClient!.registerTopic(topicOfInterestIds: topicOfInterestIds).wrap();
-  }
-
   Future<ApiResponse> logOut() async {
     return await apiClient!.logOut().wrap();
   }

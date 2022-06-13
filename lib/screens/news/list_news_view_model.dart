@@ -13,17 +13,16 @@ class ListNewsViewModel extends BaseViewModel with LoadMoreMixin<ArticleModel>{
   final UserRepository userRepo;
   List<ArticleModel>? newsData;
   final int catId;
-  String keyword = '';
   bool isFavoriteActive = false;
   List<int> topicIds = [0];
 
   ListNewsViewModel({required this.repo, required this.userRepo, required this.catId}) : super(repo) {
-    LoadingData();
+    loadingData();
   }
 
   @override
   Future<ApiResponse<ListResponse<List<ArticleModel>>>> getData() {
-    return repo.getArticleByType(keyword: keyword, slug: Slug.newsPage, page: pagingRequest.page!);
+    return repo.getArticleByType(slug: Slug.newsPage, page: pagingRequest.page!);
   }
 
   @override
@@ -36,7 +35,7 @@ class ListNewsViewModel extends BaseViewModel with LoadMoreMixin<ArticleModel>{
     setLoading = value;
   }
 
-  void LoadingData() async{
+  void loadingData() async{
     await refreshData(needShowLoading: true);
     await getFavoriteStatus();
   }
@@ -53,26 +52,5 @@ class ListNewsViewModel extends BaseViewModel with LoadMoreMixin<ArticleModel>{
       }
     }
     setLoading = false;
-  }
-
-  registerTopic({required String type, SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
-    List<String> ids = topicIds.map((item) => item.toString()).toList();
-    var cId = catId.toString();
-
-    if(type == 'remove') {
-      ids.remove(cId);
-      if(ids.isEmpty) {
-        ids.add('0');
-      }
-    }
-
-    if(type == 'add' && !ids.contains(cId)) ids.add(cId);
-
-    final response = await userRepo.registerTopic(ids);
-    if (response.isOk) {
-      successCallback?.call(null);
-    } else {
-      errorCallback?.call(response.message);
-    }
   }
 }

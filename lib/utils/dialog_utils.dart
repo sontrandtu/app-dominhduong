@@ -1,11 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../page_routes.dart';
 import '../theme/colors.dart';
 
 Future showPermissionDialog(BuildContext context, {required String title, required String content}) {
@@ -191,7 +189,7 @@ showAlert(BuildContext context) {
 
 showAlertSuccessBooking(BuildContext context, GestureTapCallback onTap) {
   Widget submitButton = ElevatedButton(
-    child: Text('Lịch sử đặt lịch'.toUpperCase()),
+    child: Text('Về Trang chủ'.toUpperCase()),
     style: ElevatedButton.styleFrom(
         primary: AppColors.textWhite,
         side: BorderSide(color: AppColors.primaryColor),

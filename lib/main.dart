@@ -14,8 +14,6 @@ import 'package:dominhduong/repository/sign_in_repository.dart';
 import 'package:dominhduong/repository/user_repository.dart';
 import 'package:dominhduong/repository/widget_repository.dart';
 import 'package:dominhduong/repository/youtube_repository.dart';
-import 'package:dominhduong/screens/account/relatives/user_info_page.dart';
-import 'package:dominhduong/screens/account/relatives/user_info_view_model.dart';
 import 'package:dominhduong/screens/booking/book_success_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_view_model.dart';
@@ -32,14 +30,6 @@ import 'package:dominhduong/screens/news/list_news_page.dart';
 import 'package:dominhduong/screens/news/list_news_view_model.dart';
 import 'package:dominhduong/screens/news/news_detail_page.dart';
 import 'package:dominhduong/screens/news/news_detail_view_model.dart';
-import 'package:dominhduong/screens/pages/medical_examination_guide_page.dart';
-import 'package:dominhduong/screens/pages/medical_examination_guide_view_model.dart';
-import 'package:dominhduong/screens/pages/single_page.dart';
-import 'package:dominhduong/screens/pages/single_page_view_model.dart';
-import 'package:dominhduong/screens/product/list_product_page.dart';
-import 'package:dominhduong/screens/product/list_product_view_model.dart';
-import 'package:dominhduong/screens/product/product_detail_page.dart';
-import 'package:dominhduong/screens/product/product_detail_view_model.dart';
 import 'package:dominhduong/screens/service/list_service_page.dart';
 import 'package:dominhduong/screens/service/list_service_view_model.dart';
 import 'package:dominhduong/screens/service/service_detail_page.dart';
@@ -48,8 +38,6 @@ import 'package:dominhduong/screens/sign_in/enter_otp/enter_otp_page.dart';
 import 'package:dominhduong/screens/sign_in/enter_otp/enter_otp_view_model.dart';
 import 'package:dominhduong/screens/sign_in/enter_phone_number/enter_phone_number_page.dart';
 import 'package:dominhduong/screens/sign_in/enter_phone_number/enter_phone_number_view_model.dart';
-import 'package:dominhduong/screens/topic/list_topic_page.dart';
-import 'package:dominhduong/screens/topic/list_topic_view_model.dart';
 import 'package:dominhduong/screens/traditional_medicine/list_traditional_medicine_page.dart';
 import 'package:dominhduong/screens/traditional_medicine/list_traditional_medicine_view_model.dart';
 import 'package:dominhduong/screens/traditional_medicine/traditional_medicine_detail_page.dart';
@@ -66,7 +54,6 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'enum/slug.dart';
 import 'global_key.dart';
 import 'model/article_model.dart';
 import 'screens/booking/booking_page.dart';
@@ -209,13 +196,6 @@ class MyApp extends StatelessWidget {
         final arguments = ModalRoute.of(context)?.settings.arguments as List;
         return ChangeNotifierProvider(create: (_) => EnterOTPViewModel(repo: context.read(), phoneNumber: arguments[0], otp: arguments[1]), child: const EnterOTPPage());
       },
-      PageRoutes.singlePage: (BuildContext context) {
-        final slug = ModalRoute.of(context)?.settings.arguments as Slug;
-        return ChangeNotifierProvider(create: (_) => SinglePageViewModel(repo: context.read(), slug: slug), child: const SinglePage());
-      },
-      PageRoutes.medicalExaminationGuidePage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => MedicalExaminationGuideViewModel(repo: context.read()), child: const MedicalExaminationGuidePage());
-      },
       PageRoutes.listDoctorPage: (BuildContext context) {
         return ChangeNotifierProvider(create: (_) => ListDoctorViewModel(context.read()), child: const ListDoctorPage());
       },
@@ -256,21 +236,11 @@ class MyApp extends StatelessWidget {
         final args = ModalRoute.of(context)?.settings.arguments as List<dynamic>;
         return ChangeNotifierProvider(create: (_) => VideoDetailViewModel(repo: context.read<ArticleRepository>(), articleModel: args[0] as ArticleModel, categoryName: args[1] as String), child: const VideoDetailPage());
       },
-      PageRoutes.listProductPage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => ListProductViewModel(context.read<ArticleRepository>()), child: const ListProductPage());
-      },
-      PageRoutes.productDetailPage: (BuildContext context) {
-        final articleId = ModalRoute.of(context)?.settings.arguments as int;
-        return ChangeNotifierProvider(create: (_) => ProductDetailViewModel(repo: context.read<ArticleRepository>(), articleId: articleId), child: const ProductDetailPage());
-      },
       PageRoutes.historyPage: (BuildContext context) {
         return ChangeNotifierProvider(
             create: (_) => historyVM,
             child: const ListHistoryPage()
         );
-      },
-      PageRoutes.listTopicPage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => ListTopicViewModel(repo: context.read()), child: const ListTopicPage());
       },
       PageRoutes.treatmentSuccess: (BuildContext context) {
         return const BookingSuccessPage();
@@ -280,9 +250,6 @@ class MyApp extends StatelessWidget {
         int branchId = arguments.isNotEmpty ? arguments[0] : 0;
         int doctorId = arguments.isNotEmpty ? arguments[1] : 0;
         return ChangeNotifierProvider(create: (_) => BookingViewModel(repo: context.read(), doctorRepo: context.read<DoctorRepository>(), userRepo: context.read<UserRepository>(), branchId: branchId, doctorId: doctorId), child: const BookingPage(type: 'main'));
-      },
-      PageRoutes.userInfoPage: (BuildContext context) {
-        return ChangeNotifierProvider(create: (_) => UserInfoViewModel(userRepo: context.read<UserRepository>()), child: const UserInfoPage());
       },
     };
   }

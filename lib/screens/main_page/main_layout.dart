@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:dominhduong/base/app_provider.dart';
 import 'package:dominhduong/enum/bottom_bar_type.dart';
 import 'package:dominhduong/page_routes.dart';
@@ -16,7 +14,6 @@ import 'package:dominhduong/utils/extensions/text_styles_extension.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../global_key.dart';
@@ -33,56 +30,8 @@ class MainLayout extends StatefulWidget {
 class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
   int _currentIndex = 0;
   MainViewModel get viewModel => context.read<MainViewModel>();
-  onPressedNotification() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('launch_background');
-    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid,);
-    await flutterLocalNotificationsPlugin.initialize(
-        initializationSettings,
-        onSelectNotification: (String? data) async {
-          // decreaseBadger();
-          final map = jsonDecode(data!) as Map<String, dynamic>;
-          actionWhenReceiverNotification(RemoteMessage(data: map));
-        }
-    );
-  }
 
-  onListenerMessage() async {
-    if (Platform.isAndroid) {
-      await onPressedNotification();
-    }
-
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage? message) async {
-      RemoteNotification? notification = message?.notification;
-      AndroidNotification? android = message?.notification?.android;
-      // increaseBadger();
-      if (android != null && notification != null) {
-        await flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(channel.id, channel.name,
-                importance: Importance.max,
-                priority: Priority.high,
-                icon: '@drawable/ic_launcher_foreground'),
-          ),
-          payload: jsonEncode(message?.data),
-        );
-      }
-    });
-
-    FirebaseMessaging.onBackgroundMessage((message) async {
-      actionWhenReceiverNotification(message);
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // decreaseBadger();
-      actionWhenReceiverNotification(message);
-    });
-    requestPermission();
-  }
+  bool showFab = true;
 
   actionWhenReceiverNotification(RemoteMessage message) {
     final data = message.data;
@@ -97,36 +46,6 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
     }
   }
 
-  // increaseBadger() {
-  //   if (Platform.isAndroid) {
-  //     var count = PreferenceManager.getValue<int>(PreferenceManager.KEY_UNREAD_MESSAGE) ?? 0;
-  //     PreferenceManager.setValue(PreferenceManager.KEY_UNREAD_MESSAGE, ++count);
-  //     FlutterAppBadger.updateBadgeCount(count);
-  //   }
-  // }
-  // decreaseBadger() {
-  //   if (Platform.isAndroid) {
-  //     var count = PreferenceManager.getValue<int>(PreferenceManager.KEY_UNREAD_MESSAGE) ?? 0;
-  //     PreferenceManager.setValue(PreferenceManager.KEY_UNREAD_MESSAGE, count <= 1 ? 0 : --count);
-  //     FlutterAppBadger.updateBadgeCount(count);
-  //   } else {
-  //     context.read<MainViewModel>().decreaseBadge();
-  //   }
-  // }
-
-  requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
   final homeNav = GlobalKey<NavigatorState>();
   final historyNav = GlobalKey<NavigatorState>();
   final videoNav = GlobalKey<NavigatorState>();
@@ -137,13 +56,13 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
   late PageController _pageController;
   @override
   void initState() {
+    showFab = true;
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     _pageController = PageController();
     Provider.of<AppProvider>(context, listen: false).navigateToTabStream.listen((event) {
       currentTab = event;
     });
-    onListenerMessage();
   }
 
   @override
@@ -188,6 +107,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
+    showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return WillPopScope(
       onWillPop: () async {
         if (_currentIndex == 0) {
@@ -302,7 +222,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
                   case PageRoutes.account:
                     builder = (BuildContext nestedContext) {
                       return ChangeNotifierProvider(
-                          create: (_) => AccountTabViewModel(context.read()),
+                          create: (_) => AccountTabViewModel(userRepo: context.read()),
                           child: const AccountTab()
                       );
                     };
@@ -315,7 +235,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
             ),
           ],
         ),
-        floatingActionButton: SizedBox(
+        floatingActionButton: showFab ? SizedBox(
           width: 40,
           height: 40,
           child: Center(
@@ -329,7 +249,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
               tooltip: "Đặt lịch",
             ),
           ),
-        ),
+        ) : null,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
         bottomNavigationBar: BottomAppBar(

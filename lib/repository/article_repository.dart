@@ -6,8 +6,8 @@ import 'package:dominhduong/repository/repository.dart';
 import 'package:dominhduong/enum/slug.dart';
 
 class ArticleRepository extends Repository {
-  Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByType({String? keyword, required Slug slug, int page = 1, int limit = ApiConfig.pageSize}) async {
-    return await apiClient!.getArticleByType(keyword: keyword, type: slug.stringValue, page: page, limit: limit).wrap();
+  Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByType({ required Slug slug, int page = 1, int limit = ApiConfig.pageSize}) async {
+    return await apiClient!.getArticleByType(type: slug.stringValue, page: page, limit: limit).wrap();
   }
 
   Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByCategory(int id, int page, {int limit = ApiConfig.pageSize}) async {

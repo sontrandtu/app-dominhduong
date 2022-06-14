@@ -57,7 +57,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
   @override
   void initState() {
     showFab = true;
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
     _pageController = PageController();
     Provider.of<AppProvider>(context, listen: false).navigateToTabStream.listen((event) {

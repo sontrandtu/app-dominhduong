@@ -156,7 +156,7 @@ class _EnterOTPPageState extends State<EnterOTPPage> {
                                 isActive: !viewModel.isExpired && viewModel.otp.length == 6,
                                 onPressed: () {
                                   viewModel.verifyOTP(errorCallback: (message) {
-                                    context.showMessage(message);
+                                    context.showMessage(message, type: MessageType.error);
                                   }, successCallback: (message) async{
                                     homeVM = HomeViewModel(homeRepo: HomeRepository());
                                     historyVM = ListHistoryViewModel(repo: BookingRepository());

@@ -44,7 +44,9 @@ class _EnterOTPPageState extends State<EnterOTPPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<EnterOTPViewModel>();
+    viewModel.context = context;
     textEditingController.text = viewModel.otp;
+
     return CoverLoading(
       showLoading: viewModel.isLoading,
       isStack: true,
@@ -110,17 +112,15 @@ class _EnterOTPPageState extends State<EnterOTPPage> {
                           ),
                           animationDuration: const Duration(milliseconds: 300),
                           enableActiveFill: true,
+
                           errorAnimationController: errorController,
-                          controller: textEditingController,
-                          onCompleted: (v) {},
+                          // controller: textEditingController,
                           onChanged: (value) {
+                            textEditingController.text = value;
                             viewModel.otp = value;
+                            setState((){});
                           },
-                          beforeTextPaste: (text) {
-                            //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                            //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                            return true;
-                          },
+
                           appContext: context,
                         ),
                       ),

@@ -2,17 +2,24 @@ import 'dart:async';
 import 'package:dominhduong/base/base_view_model.dart';
 import 'package:dominhduong/preference/preference.dart';
 import 'package:dominhduong/repository/sign_in_repository.dart';
+import 'package:flutter/material.dart';
+
+import '../../../utils/extensions/context_extension.dart';
 
 const int timerOTP = 60;
 
 class EnterOTPViewModel extends BaseViewModel {
   final String phoneNumber;
   String otp = '';
+  BuildContext? context;
 
   final SignInRepository repo;
 
   EnterOTPViewModel({required this.repo, required this.phoneNumber, required this.otp}) : super(repo) {
     startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context!.showMessage(otp, type: MessageType.success);
+    });
   }
 
   set updateOtp(String value) {

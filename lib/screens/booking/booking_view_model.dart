@@ -74,6 +74,7 @@ class BookingViewModel extends BaseViewModel {
     }
 
     await loadUserInfo();
+    await loadDoctorsByBranch();
 
     if(branchId != 0 && doctorId != 0) {
       bookingModel.branchId = branchId;
@@ -109,7 +110,7 @@ class BookingViewModel extends BaseViewModel {
   }
 
   loadDoctorsByBranch() async{
-    final response = await doctorRepo.getDoctorsByBranch(bookingModel.branchId);
+    final response = await doctorRepo.getDoctorsByBranch(1);
     if(response.isOk){
       doctors.clear();
       bookingModel.doctorId = -1;
@@ -126,7 +127,7 @@ class BookingViewModel extends BaseViewModel {
       phone: bookingModel.phone ?? '',
       birthday: bookingModel.birthday ?? '',
       typeId: bookingModel.typeId!,
-      branchId: bookingModel.branchId!,
+      branchId: 1,
       appointmentDate: bookingModel.appointmentDate!,
       timeSlot: bookingModel.timeSlot!,
       reason: bookingModel.reason!,

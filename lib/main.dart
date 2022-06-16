@@ -56,6 +56,8 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'global_key.dart';
 import 'model/article_model.dart';
+import 'screens/account/user_info/user_info_page.dart';
+import 'screens/account/user_info/user_info_view_model.dart';
 import 'screens/booking/booking_page.dart';
 import 'screens/booking/booking_view_model.dart';
 
@@ -231,6 +233,9 @@ class MyApp extends StatelessWidget {
       PageRoutes.traditionalMedicineDetailPage: (BuildContext context) {
         final articleId = ModalRoute.of(context)?.settings.arguments as int;
         return ChangeNotifierProvider(create: (_) => TraditionalMedicineDetailViewModel(repo: context.read<ArticleRepository>(), articleId: articleId), child: const TraditionalMedicineDetailPage());
+      },
+      PageRoutes.userInfoPage: (BuildContext context) {
+        return ChangeNotifierProvider(create: (_) => UserInfoViewModel(userRepo: context.read<UserRepository>()), child: const UserInfoPage());
       },
       PageRoutes.videoDetailPage: (BuildContext context) {
         final args = ModalRoute.of(context)?.settings.arguments as List<dynamic>;

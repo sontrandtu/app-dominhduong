@@ -222,7 +222,7 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
                   case PageRoutes.account:
                     builder = (BuildContext nestedContext) {
                       return ChangeNotifierProvider(
-                          create: (_) => AccountTabViewModel(userRepo: context.read()),
+                          create: (_) => AccountTabViewModel(context.read()),
                           child: const AccountTab()
                       );
                     };

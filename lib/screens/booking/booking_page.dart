@@ -15,7 +15,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../widgets/appbar/appbar_comp.dart';
-import '../../widgets/fields/dropdown/custom_dropdown_button_default.dart';
 export 'package:dominhduong/utils/extensions/string_extension.dart';
 
 
@@ -200,33 +199,34 @@ class _BookingPageState extends State<BookingPage> {
                                     ),
                                   ),
                                   const Text('Địa điểm', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Roboto', color: AppColors.backgroundBlack)),
-                                  viewModel.branches.isNotEmpty ? CustomDropdownButton(
+                                  // viewModel.branches.isNotEmpty ? CustomDropdownButton(
+                                  //   isRefresh: viewModel.isRefresh,
+                                  //   placeholderText: viewModel.holderBranchText,
+                                  //   icons: Icons.place_outlined,
+                                  //   data: viewModel.branches,
+                                  //   isValidate: isSelectedBranch,
+                                  //   type: 1,
+                                  //   onSelectedCallback: (companyId) {
+                                  //     viewModel.bookingModel.branchId = companyId;
+                                  //     viewModel.loadDoctorsByBranch();
+                                  //     setState(() {
+                                  //       isSelectedBranch = viewModel.isValidate(viewModel.bookingModel.branchId);
+                                  //     });
+                                  //   },
+                                  // ) : CustomDropdownButtonDefault(
+                                  //   type: 1,
+                                  //   readOnly: true,
+                                  //   placeholderText: viewModel.holderBranchText,
+                                  //   icons: Icons.place_outlined,
+                                  // ),
+                                  // Visibility(
+                                  //     visible: isSelectedBranch,
+                                  //     child: const Text('Vui lòng chọn chi nhánh', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12))
+                                  // ),
+                                  // viewModel.doctors.isNotEmpty ?
+                                  CustomDropdownButton(
                                     isRefresh: viewModel.isRefresh,
-                                    placeholderText: viewModel.holderBranchText,
-                                    icons: Icons.place_outlined,
-                                    data: viewModel.branches,
-                                    isValidate: isSelectedBranch,
-                                    type: 1,
-                                    onSelectedCallback: (companyId) {
-                                      viewModel.bookingModel.branchId = companyId;
-                                      viewModel.loadDoctorsByBranch();
-                                      setState(() {
-                                        isSelectedBranch = viewModel.isValidate(viewModel.bookingModel.branchId);
-                                      });
-                                    },
-                                  ) : CustomDropdownButtonDefault(
-                                    type: 1,
-                                    readOnly: true,
-                                    placeholderText: viewModel.holderBranchText,
-                                    icons: Icons.place_outlined,
-                                  ),
-                                  Visibility(
-                                      visible: isSelectedBranch,
-                                      child: const Text('Vui lòng chọn chi nhánh', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12))
-                                  ),
-                                  viewModel.doctors.isNotEmpty ? CustomDropdownButton(
-                                    isRefresh: viewModel.isRefresh,
-                                    readOnly: viewModel.doctors.isEmpty,
+                                    readOnly: false,
                                     placeholderText: viewModel.holderDoctorText,
                                     icons: Icons.perm_contact_calendar_outlined,
                                     data: viewModel.doctors,
@@ -235,13 +235,14 @@ class _BookingPageState extends State<BookingPage> {
                                     onSelectedCallback: (doctorId) {
                                       viewModel.bookingModel.doctorId = doctorId;
                                     },
-                                  ) : CustomDropdownButtonDefault(
-                                    type: 1,
-                                    readOnly: true,
-                                    //isValidate: isSelectedDoctor,
-                                    placeholderText: viewModel.holderDoctorText,
-                                    icons: Icons.perm_contact_calendar_outlined,
                                   ),
+                                  //     : CustomDropdownButtonDefault(
+                                  //   type: 1,
+                                  //   readOnly: true,
+                                  //   //isValidate: isSelectedDoctor,
+                                  //   placeholderText: viewModel.holderDoctorText,
+                                  //   icons: Icons.perm_contact_calendar_outlined,
+                                  // ),
                                   const Padding(
                                       padding: EdgeInsets.only(top: 10),
                                       child: Text('Lịch hẹn', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal, fontFamily: 'Roboto', color: AppColors.iconDefaultColor))
@@ -378,7 +379,7 @@ class _BookingPageState extends State<BookingPage> {
                                             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color(0xFF3B2313))),
                                             onPressed: () {
                                               if (_bookingFormKey.currentState!.validate()
-                                                  && viewModel.bookingModel.branchId != null
+                                                  // && viewModel.bookingModel.branchId != null
                                                   && viewModel.bookingModel.doctorId != null
                                                   && viewModel.bookingModel.typeId != null
                                                   && viewModel.bookingModel.timeSlot != 0

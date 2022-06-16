@@ -33,7 +33,7 @@ class WidgetModel {
 
   List<String> get arrImageUrl {
     List<String> data = [];
-    if (images!.isNotEmpty) {
+    if ((images ?? []).isNotEmpty) {
       for (var image in images!) {
         if(image.isNotEmpty) data.add(AppConfig.prefixUrl + image);
       }

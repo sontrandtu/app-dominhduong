@@ -10,11 +10,11 @@ class AppConfig {
   static const newsId = 53;
   static const channelId = "UCGK8NNm6oUCmKyDRHGD6cMw";
   static const youtubeKey = "AIzaSyDulAbeNXUNN1gapBYxXm3fphCZyu1PjtQ";
-  static const gender = {
-    'male': 'nam',
-    'female': 'nữ',
-    'other': 'khác',
-  };
+  // static const gender = {
+  //   'male': 'nam',
+  //   'female': 'nữ',
+  //   'other': 'khác',
+  // };
   static const dayOfWeekConvert = {
     "Monday": "T2",
     "Tuesday": "T3",

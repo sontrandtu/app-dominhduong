@@ -164,29 +164,6 @@ showModalBottomSheetImage({required BuildContext context, required Function(dyna
   );
 }
 
-showAlert(BuildContext context) {
-  Widget submitButton = ElevatedButton(
-      child: Text('Lịch sử mua'.toUpperCase()),
-      style: ElevatedButton.styleFrom(
-          primary: AppColors.textWhite
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      });
-
-  AlertDialog dialog = AlertDialog(
-      title: const Text('Đặt mua sản phẩm thành công!'),
-      actions: [submitButton]);
-
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return dialog;
-      }
-  );
-}
-
-
 showAlertSuccessBooking(BuildContext context, GestureTapCallback onTap) {
   Widget submitButton = ElevatedButton(
     child: Text('Về Trang chủ'.toUpperCase()),
@@ -204,22 +181,6 @@ showAlertSuccessBooking(BuildContext context, GestureTapCallback onTap) {
 
   );
 
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return dialog;
-      });
-}
-
-showAlertUpdateInfoSuccess(BuildContext context, String content) {
-  AlertDialog dialog = AlertDialog(
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-        child: Text(content, style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-            fontFamily: 'Roboto'),),
-      ));
   showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -215,7 +215,7 @@ class _BookingPageState extends State<BookingPage> {
                                   //   },
                                   // ) : CustomDropdownButtonDefault(
                                   //   type: 1,
-                                  //   readOnly: true,
+                                  //   readOnly: true,ab
                                   //   placeholderText: viewModel.holderBranchText,
                                   //   icons: Icons.place_outlined,
                                   // ),

@@ -11,7 +11,6 @@ import 'package:dominhduong/screens/video/list_video_view_model.dart';
 import 'package:dominhduong/theme/colors.dart';
 import 'package:dominhduong/utils/extensions/context_extension.dart';
 import 'package:dominhduong/utils/extensions/text_styles_extension.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,19 +31,6 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
   MainViewModel get viewModel => context.read<MainViewModel>();
 
   bool showFab = true;
-
-  actionWhenReceiverNotification(RemoteMessage message) {
-    final data = message.data;
-    if (data.containsKey('route') && data.containsKey('route_id')) {
-      if (data['route'] == '/list_order_page') {
-        return Navigator.pushNamed(context, data['route'], arguments: [0, int.parse(data['id'])]);
-      }
-      return Navigator.pushNamed(context, data['route'], arguments: int.parse(data['id']));
-    }
-    if (data.containsKey('route')) {
-      return Navigator.pushNamed(context, data['route']);
-    }
-  }
 
   final homeNav = GlobalKey<NavigatorState>();
   final historyNav = GlobalKey<NavigatorState>();

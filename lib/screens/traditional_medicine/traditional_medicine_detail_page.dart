@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../../theme/colors.dart';
-import '../../widgets/article_related/article_realted_comp.dart';
-import '../../widgets/article_related/article_related_comp_view_model.dart';
+import '../../widgets/article_related/article_related_comp.dart';
+import '../../widgets/article_related/article_related_view_model.dart';
 import '../../widgets/html_content.dart';
 
 class TraditionalMedicineDetailPage extends StatefulWidget {

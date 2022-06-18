@@ -1,8 +1,8 @@
-import 'package:dominhduong/widgets/article_related/article_related_comp_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../page_routes.dart';
+import '../../../page_routes.dart';
 import '../custom_cached_network_image.dart';
+import 'article_related_view_model.dart';
 
 class ArticleRelatedComp extends StatelessWidget{
   final String title;
@@ -14,7 +14,7 @@ class ArticleRelatedComp extends StatelessWidget{
     return viewModel.articleRelated.isNotEmpty ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Padding(
+        Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Text(
             title,

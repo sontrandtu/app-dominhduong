@@ -14,7 +14,6 @@ import 'package:dominhduong/repository/sign_in_repository.dart';
 import 'package:dominhduong/repository/user_repository.dart';
 import 'package:dominhduong/repository/widget_repository.dart';
 import 'package:dominhduong/repository/youtube_repository.dart';
-import 'package:dominhduong/screens/booking/book_success_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_view_model.dart';
 import 'package:dominhduong/screens/doctor/list_doctor_page.dart';
@@ -246,9 +245,6 @@ class MyApp extends StatelessWidget {
             create: (_) => historyVM,
             child: const ListHistoryPage()
         );
-      },
-      PageRoutes.treatmentSuccess: (BuildContext context) {
-        return const BookingSuccessPage();
       },
       PageRoutes.treatment: (BuildContext context) {
         final arguments = ModalRoute.of(context)?.settings.arguments as List;

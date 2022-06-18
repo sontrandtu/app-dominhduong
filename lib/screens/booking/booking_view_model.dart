@@ -10,7 +10,6 @@ import 'package:dominhduong/model/user/user_info_model.dart';
 import 'package:dominhduong/repository/booking_repository.dart';
 import 'package:dominhduong/repository/doctor_repository.dart';
 import 'package:flutter_html/shims/dart_ui.dart';
-import '../../preference/preference.dart';
 import '../../repository/user_repository.dart';
 import '../../utils/toast_utils.dart';
 
@@ -74,14 +73,14 @@ class BookingViewModel extends BaseViewModel {
     }
 
     await loadUserInfo();
-    await loadDoctorsByBranch();
+    await loadDoctors();
 
     if(branchId != 0 && doctorId != 0) {
       bookingModel.branchId = branchId;
       bookingModel.doctorId = doctorId;
       int bIdx = branches.indexWhere((element) => element.id == branchId);
       if(bIdx > -1) branches[bIdx].isSelected = true;
-      await loadDoctorsByBranch();
+      await loadDoctors();
       int dIdx = doctors.indexWhere((element) => element.physicianId == doctorId);
       if(dIdx > -1) doctors[dIdx].isSelected = true;
     }
@@ -109,8 +108,8 @@ class BookingViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  loadDoctorsByBranch() async{
-    final response = await doctorRepo.getDoctorsByBranch(1);
+  loadDoctors() async{
+    final response = await doctorRepo.getAllDoctor();
     if(response.isOk){
       doctors.clear();
       bookingModel.doctorId = -1;

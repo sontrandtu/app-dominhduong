@@ -110,6 +110,7 @@ class _EnterOTPPageState extends State<EnterOTPPage> {
                             activeFillColor: AppColors.pinCodeTextFieldColor,
                             selectedFillColor: AppColors.pinCodeTextFieldColor,
                           ),
+                          controller: textEditingController,
                           animationDuration: const Duration(milliseconds: 300),
                           enableActiveFill: true,
 

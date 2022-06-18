@@ -82,7 +82,7 @@ abstract class RestClient {
     @Path('id') int? id
   });
 
-  @GET('/doctors-form')
+  @GET('/doctors')
   Future<HttpResponse<ListResponse<List<DoctorModel>>>> getAllDoctor();
 
   @GET('/doctors/{id}')

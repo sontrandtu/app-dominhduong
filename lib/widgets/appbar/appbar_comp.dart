@@ -69,7 +69,7 @@ class _PageAppBarCompState extends State<PageAppBarComp> {
               builder: (BuildContext context) {
                 return IconButton(
                   padding: const EdgeInsets.only(
-                      left: 10, right: 0, top: 0, bottom: 0),
+                      left: 20, right: 0, top: 0, bottom: 0),
                   alignment: Alignment.center,
                   icon: const Icon(Icons.arrow_back_ios,
                       color: AppColors.backgroundBlack, size: 18),

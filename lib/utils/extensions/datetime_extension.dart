@@ -43,24 +43,24 @@ extension DateTimextention on DateTime {
   }
 
 
-  String get dayOfWeekAndDate{
-    return '$dateTimeToDayOfWeekVN, $dateTimeToDDMMYYYY';
-  }
-  String get dayOfWeekAndDateAndTime{
-    return '$dateTimeToDayOfWeekVN, $dateTimeToDDMMYYYY, $dateTimeToVnHour24h';
-  }
-
-  String get hourAndDateTime{
-    return '$dateTimeToVnHour24h, $dateTimeToDDMMYYYY';
-  }
-
-  String get dateTimeInTable{
-    return '$dateTimeToDDMMYYYY - $dateTimeToVnHour';
-  }
-
-  String get dateTimeInWeather{
-    return '$dateTimeToDayOfWeek, $dateTimeToDDMMYYYY';
-  }
+  // String get dayOfWeekAndDate{
+  //   return '$dateTimeToDayOfWeekVN, $dateTimeToDDMMYYYY';
+  // }
+  // String get dayOfWeekAndDateAndTime{
+  //   return '$dateTimeToDayOfWeekVN, $dateTimeToDDMMYYYY, $dateTimeToVnHour24h';
+  // }
+  //
+  // String get hourAndDateTime{
+  //   return '$dateTimeToVnHour24h, $dateTimeToDDMMYYYY';
+  // }
+  //
+  // String get dateTimeInTable{
+  //   return '$dateTimeToDDMMYYYY - $dateTimeToVnHour';
+  // }
+  //
+  // String get dateTimeInWeather{
+  //   return '$dateTimeToDayOfWeek, $dateTimeToDDMMYYYY';
+  // }
 
   String get dayOfWeekDateTimeVN {
     return '$dateTimeToDayOfWeekVN $dateTimeToDDMMYYYY - $dateTimeToVnHour24h';
@@ -139,11 +139,11 @@ extension DateTimextention on DateTime {
 
   DateTime get onlyUtcDate => DateTime.utc(year, month, day);
 
-  bool isSameDate(DateTime other) {
-    try {
-      return year == other.year && month == other.month && day == other.day;
-    } catch (ex) {
-      return false;
-    }
-  }
+  // bool isSameDate(DateTime other) {
+  //   try {
+  //     return year == other.year && month == other.month && day == other.day;
+  //   } catch (ex) {
+  //     return false;
+  //   }
+  // }
 }

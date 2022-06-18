@@ -198,7 +198,7 @@ class _BookingPageState extends State<BookingPage> {
                                       ],
                                     ),
                                   ),
-                                  const Text('Địa điểm', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Roboto', color: AppColors.backgroundBlack)),
+                                  const Text('Bác sĩ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Roboto', color: AppColors.backgroundBlack)),
                                   // viewModel.branches.isNotEmpty ? CustomDropdownButton(
                                   //   isRefresh: viewModel.isRefresh,
                                   //   placeholderText: viewModel.holderBranchText,

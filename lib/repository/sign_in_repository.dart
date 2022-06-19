@@ -1,6 +1,6 @@
 import 'package:dominhduong/api/api_response.dart';
 import 'package:dominhduong/api/response_model/login_response.dart';
-import 'package:dominhduong/model/user/user_info_model.dart';
+import 'package:dominhduong/model/user_info_model.dart';
 import 'package:dominhduong/repository/repository.dart';
 
 class SignInRepository extends Repository {

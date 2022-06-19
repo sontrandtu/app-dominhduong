@@ -164,7 +164,7 @@ showModalBottomSheetImage({required BuildContext context, required Function(dyna
   );
 }
 
-showAlertSuccessBooking(BuildContext context, GestureTapCallback onTap) {
+showAlertSuccessBooking({required BuildContext context, required GestureTapCallback onTap}) {
   Widget submitButton = ElevatedButton(
     child: Text('Về Trang chủ'.toUpperCase()),
     style: ElevatedButton.styleFrom(

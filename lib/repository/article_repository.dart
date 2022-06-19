@@ -10,9 +10,9 @@ class ArticleRepository extends Repository {
     return await apiClient!.getArticleByType(type: slug.stringValue, page: page, limit: limit).wrap();
   }
 
-  Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByCategory(int id, int page, {int limit = ApiConfig.pageSize}) async {
-    return await apiClient!.getArticleByCategory(id: id, page: page, limit: limit).wrap();
-  }
+  // Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByCategory(int id, int page, {int limit = ApiConfig.pageSize}) async {
+  //   return await apiClient!.getArticleByCategory(id: id, page: page, limit: limit).wrap();
+  // }
 
   Future<ApiResponse<ListResponse<List<ArticleModel>>>> getArticleByCategoryAndType({String? keyword, required int id, int page = 1, required String type, int limit = ApiConfig.pageSize}) async {
     return await apiClient!.getArticleByCategoryAndType(keyword: keyword, id: id, page: page, limit: limit, type: type).wrap();

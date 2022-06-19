@@ -194,29 +194,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<HttpResponse<ListResponse<List<DoctorModel>>>> getDoctorsByBranch(
-      {id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<DoctorModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/branch/$id/doctors',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<DoctorModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<DoctorModel>(
-                (i) => DoctorModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
   Future<HttpResponse<ListResponse<List<DoctorModel>>>> getAllDoctor() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -343,10 +320,8 @@ class _RestClient implements RestClient {
 
   @override
   Future<HttpResponse<BookingModel>> bookingTreatment(
-      {branchId,
-      doctor,
+      {doctor,
       timeSlot,
-      typeId,
       username,
       phone,
       birthday,
@@ -356,17 +331,11 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = FormData();
-    if (branchId != null) {
-      _data.fields.add(MapEntry('branch_id', branchId.toString()));
-    }
     if (doctor != null) {
       _data.fields.add(MapEntry('doctor', doctor.toString()));
     }
     if (timeSlot != null) {
       _data.fields.add(MapEntry('time_slot', timeSlot.toString()));
-    }
-    if (typeId != null) {
-      _data.fields.add(MapEntry('type_id', typeId.toString()));
     }
     if (username != null) {
       _data.fields.add(MapEntry('username', username));
@@ -395,50 +364,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<HttpResponse<ListResponse<List<CompanyModel>>>> getCompanies() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<CompanyModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/companies',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<CompanyModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<CompanyModel>(
-                (i) => CompanyModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<BranchModel>>>> getBranches(
-      {children}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'children': children};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<BranchModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/branches?order_by=sequence&order=desc',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<BranchModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<BranchModel>(
-                (i) => BranchModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
   Future<HttpResponse<ListResponse<List<TimeSlotModel>>>> getTimeSlots() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -454,28 +379,6 @@ class _RestClient implements RestClient {
         (json) => (json as List<dynamic>)
             .map<TimeSlotModel>(
                 (i) => TimeSlotModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<BookingTypeModel>>>>
-      getListBookingType() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<BookingTypeModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/booking-type',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<BookingTypeModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<BookingTypeModel>(
-                (i) => BookingTypeModel.fromJson(i as Map<String, dynamic>))
             .toList());
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
@@ -500,46 +403,6 @@ class _RestClient implements RestClient {
             .map<HistoryModel>(
                 (i) => HistoryModel.fromJson(i as Map<String, dynamic>))
             .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<CategoryModel>>>> getListCategory(
-      {id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<CategoryModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/category-list/$id',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<CategoryModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<CategoryModel>(
-                (i) => CategoryModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<CategoryModel>> getCategoryDetail({id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<CategoryModel>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/categories/$id',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CategoryModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
@@ -572,29 +435,6 @@ class _RestClient implements RestClient {
         _setStreamType<HttpResponse<ListResponse<List<ArticleModel>>>>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, '/article-related/$id',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<ArticleModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<ArticleModel>(
-                (i) => ArticleModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<ArticleModel>>>> getArticleByCategory(
-      {id, page, limit}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<ArticleModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/categories/$id/articles',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ListResponse<List<ArticleModel>>.fromJson(
@@ -654,57 +494,6 @@ class _RestClient implements RestClient {
             .map<ArticleModel>(
                 (i) => ArticleModel.fromJson(i as Map<String, dynamic>))
             .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<ListResponse<List<VideoModel>>>> getYoutubeVideoByPart(
-      {key, channelID, part, oder, maxResults}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'key': key,
-      r'channelId': channelID,
-      r'part': part,
-      r'oder': oder,
-      r'maxResult': maxResults
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListResponse<List<VideoModel>>>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/search?',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListResponse<List<VideoModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<VideoModel>(
-                (i) => VideoModel.fromJson(i as Map<String, dynamic>))
-            .toList());
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<VideoModel>> getVideoDetail(
-      {part, channelID, key}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'part': part,
-      r'channelId': channelID,
-      r'key': key
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<VideoModel>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/search?',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = VideoModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

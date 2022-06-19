@@ -109,7 +109,7 @@ class _ListDoctorPageState extends State<ListDoctorPage> {
                                               // ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: [firstItem?.branchId, firstItem?.physicianId]);
+                                                  Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: firstItem?.id);
                                                 },
                                                 child: Container(
                                                   width: 150,
@@ -218,7 +218,7 @@ class _ListDoctorPageState extends State<ListDoctorPage> {
                                         const SizedBox(height: 15),
                                         GestureDetector(
                                           onTap: () {
-                                            Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: [doctor.branchId, doctor.physicianId]);
+                                            Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: doctor.id);
                                           },
                                           child: Container(
                                             width: 100,

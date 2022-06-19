@@ -230,7 +230,8 @@ class _TabsPageState extends State<MainLayout> with WidgetsBindingObserver{
               backgroundColor: AppColors.primaryColor,
               child: const Icon(Icons.add_rounded, size: 24, color: AppColors.secondaryColor),
               onPressed: () {
-                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: []);
+
+                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: 0);
               },
               tooltip: "Đặt lịch",
             ),

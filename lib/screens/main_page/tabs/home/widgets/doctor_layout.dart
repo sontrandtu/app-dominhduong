@@ -90,7 +90,7 @@ class _DoctorLayoutState extends State<DoctorLayout> {
                                     // ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: [widget.doctors[0].branchId, widget.doctors[0].physicianId]);
+                                        Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: widget.doctors[0].id);
                                       },
                                       child: Container(
                                           width: 120,
@@ -180,7 +180,7 @@ class _DoctorLayoutState extends State<DoctorLayout> {
                               const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: [doctor.branchId, doctor.physicianId]);
+                                  Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: doctor.id);
                                 },
                                 child: Container(
                                   width: 100,

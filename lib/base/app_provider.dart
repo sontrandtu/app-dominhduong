@@ -1,5 +1,5 @@
 import 'package:dominhduong/enum/bottom_bar_type.dart';
-import 'package:dominhduong/model/user/user_info_model.dart';
+import 'package:dominhduong/model/user_info_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import '../repository/home_repository.dart';

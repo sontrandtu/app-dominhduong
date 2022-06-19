@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:dominhduong/base/base_view_model.dart';
-import 'package:dominhduong/model/user/user_info_model.dart';
+import 'package:dominhduong/model/user_info_model.dart';
 import 'package:dominhduong/repository/user_repository.dart';
-import '../../../preference/preference.dart';
 
 class AccountTabViewModel extends BaseViewModel {
   final UserRepository repo;

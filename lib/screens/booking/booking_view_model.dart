@@ -1,12 +1,8 @@
-import 'package:dominhduong/api/api_response.dart';
-import 'package:dominhduong/api/response_model/list_response.dart';
 import 'package:dominhduong/base/base_view_model.dart';
 import 'package:dominhduong/model/booking_model.dart';
-import 'package:dominhduong/model/booking_type_model.dart';
-import 'package:dominhduong/model/branch_model.dart';
 import 'package:dominhduong/model/doctor_model.dart';
 import 'package:dominhduong/model/timeslot_model.dart';
-import 'package:dominhduong/model/user/user_info_model.dart';
+import 'package:dominhduong/model/user_info_model.dart';
 import 'package:dominhduong/repository/booking_repository.dart';
 import 'package:dominhduong/repository/doctor_repository.dart';
 import 'package:flutter_html/shims/dart_ui.dart';
@@ -17,23 +13,21 @@ class BookingViewModel extends BaseViewModel {
   final BookingRepository repo;
   final DoctorRepository doctorRepo;
   final UserRepository userRepo;
-  final int branchId;
+  // final int branchId;
   final int doctorId;
 
-  List<BranchModel> branches = [];
   List<DoctorModel> doctors = [];
   List<TimeSlotModel> timeSlots = [];
-  List<BookingTypeModel> listBookingType = [];
 
   BookingModel bookingModel = BookingModel();
   UserInfoModel userInfoModel = UserInfoModel();
-  String holderBranchText = 'Chọn chi nhánh';
+  // String holderBranchText = 'Chọn chi nhánh';
   String holderDoctorText = "Chọn bác sĩ";
-  String holderTypeText = 'Bạn cần đặt lịch?';
+  // String holderTypeText = 'Bạn cần đặt lịch?';
   int selectedIndex = -1;
   bool isRefresh = true;
 
-  BookingViewModel({required this.repo, required this.doctorRepo, required this.userRepo, this.branchId = 0, this.doctorId = 0}) : super(repo) {
+  BookingViewModel({required this.repo, required this.doctorRepo, required this.userRepo, this.doctorId = 0}) : super(repo) {
     loadData();
   }
 
@@ -52,36 +46,23 @@ class BookingViewModel extends BaseViewModel {
 
   loadData({VoidCallback? onLoadedCallback, ErrorCallback? errorCallback}) async {
     setLoading = true;
-    final response = await Future.wait([repo.getBranches(), repo.getListBookingType(), repo.getTimeSlots()]);
+    final response = await repo.getTimeSlots();
 
-    if (response[0].isOk) {
-      branches = (response[0] as ApiResponse<ListResponse<List<BranchModel>>>).data?.items ?? [];
-    } else {
-      errorCallback?.call(response[0].message);
-    }
-
-    if (response[1].isOk) {
-      listBookingType = (response[1] as ApiResponse<ListResponse<List<BookingTypeModel>>>).data?.items ?? [];
-    } else {
-      errorCallback?.call(response[1].message);
-    }
-
-    if (response[2].isOk) {
-      timeSlots = (response[2] as ApiResponse<ListResponse<List<TimeSlotModel>>>).data?.items ?? [];
+    if (response.isOk) {
+      timeSlots = response.data?.items ?? [];
     }else {
-      errorCallback?.call(response[2].message);
+      errorCallback?.call(response.message);
     }
 
     await loadUserInfo();
     await loadDoctors();
 
-    if(branchId != 0 && doctorId != 0) {
-      bookingModel.branchId = branchId;
+    if(doctorId != 0) {
       bookingModel.doctorId = doctorId;
-      int bIdx = branches.indexWhere((element) => element.id == branchId);
-      if(bIdx > -1) branches[bIdx].isSelected = true;
+      // int bIdx = branches.indexWhere((element) => element.id == branchId);
+      // if(bIdx > -1) branches[bIdx].isSelected = true;
       await loadDoctors();
-      int dIdx = doctors.indexWhere((element) => element.physicianId == doctorId);
+      int dIdx = doctors.indexWhere((element) => element.id == doctorId);
       if(dIdx > -1) doctors[dIdx].isSelected = true;
     }
 
@@ -125,8 +106,6 @@ class BookingViewModel extends BaseViewModel {
       username: bookingModel.username ?? '',
       phone: bookingModel.phone ?? '',
       birthday: bookingModel.birthday ?? '',
-      typeId: bookingModel.typeId!,
-      branchId: 1,
       appointmentDate: bookingModel.appointmentDate!,
       timeSlot: bookingModel.timeSlot!,
       reason: bookingModel.reason!,
@@ -151,14 +130,11 @@ class BookingViewModel extends BaseViewModel {
     bookingModel.birthday = userInfoModel.birthday;
     bookingModel.appointmentDate = '';
     bookingModel.reason = '';
-    bookingModel.branchId = null;
-    bookingModel.typeId = null;
     bookingModel.doctorId = null;
     bookingModel.timeSlot = null;
-    doctors.clear();
-    holderBranchText = 'Chọn chi nhánh';
+    // holderBranchText = 'Chọn chi nhánh';
     holderDoctorText = "Chọn bác sĩ";
-    holderTypeText = 'Bạn cần đặt lịch?';
+    // holderTypeText = 'Bạn cần đặt lịch?';
     selectedIndex = -1;
     isRefresh = !isRefresh;
     notifyListeners();

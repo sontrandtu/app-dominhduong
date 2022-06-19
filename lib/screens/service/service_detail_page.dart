@@ -64,7 +64,7 @@ class _ServiceDetailPageState extends State<ServiceDetailPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: []);
+                                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: 0);
                               },
                               child: Container(
                                   width: 110,

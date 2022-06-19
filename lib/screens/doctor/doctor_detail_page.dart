@@ -83,7 +83,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: [doctor?.branchId, doctor?.physicianId]);
+                              Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: doctor?.id);
                             },
                             child: Container(
                               width: 150,

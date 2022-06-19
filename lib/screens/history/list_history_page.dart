@@ -88,27 +88,17 @@ class _ListHistoryPageState extends State<ListHistoryPage> with AutomaticKeepAli
                               children: [
                                 Text(history.name!, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Color(0xff3b2313), fontFamily: 'Roboto'),overflow: TextOverflow.ellipsis,),
                                 const SizedBox(height: 10),
-                                LineCard(title: 'Chi nhánh: ', content: history.branchName ?? ''),
-                                LineCard(title: 'Dịch vụ: ', content: history.typeName ?? ''),
+                                LineCard(title: 'Vào lúc: ', content: history.timeSlotName ?? ''),
+                                LineCard(title: 'Ngày: ', content: history.dateStart ?? ''),
                                 const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.watch_later_outlined, size: 15),
-                                        const SizedBox(width: 5),
-                                        Text('${history.timeSlotName!} - ${history.dateStart!}', style: const TextStyle(fontSize: 14, fontFamily: 'Roboto'))],
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.location_on_outlined, size: 15),
-                                        const SizedBox(width: 5),
-                                        Text(history.branchName ?? '', style: const TextStyle(fontSize: 14, fontFamily: 'Roboto'))],
-                                    ),
-                                  ],
-                                )
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.start,
+                                //   children: [
+                                //     const Icon(Icons.watch_later_outlined, size: 15),
+                                //     const SizedBox(width: 5),
+                                //     Text('${history.timeSlotName!} - ${history.dateStart!}', style: const TextStyle(fontSize: 14, fontFamily: 'Roboto')),
+                                //   ],
+                                // )
                               ],
                             ),
                           )

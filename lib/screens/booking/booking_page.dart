@@ -29,7 +29,7 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
-  bool isSelectedBranch = false;
+  bool isSelectedDoctor = false;
   bool isSelectedTime = false;
   bool isSelectedType = false;
   bool isReason = false;
@@ -230,11 +230,18 @@ class _BookingPageState extends State<BookingPage> {
                                     placeholderText: viewModel.holderDoctorText,
                                     icons: Icons.perm_contact_calendar_outlined,
                                     data: viewModel.doctors,
-                                    //isValidate: isSelectedDoctor,
+                                    isValidate: isSelectedDoctor,
                                     type: 1,
                                     onSelectedCallback: (doctorId) {
                                       viewModel.bookingModel.doctorId = doctorId;
+                                          setState(() {
+                                            isSelectedDoctor = viewModel.isValidate(viewModel.bookingModel.doctorId);
+                                          });
                                     },
+                                  ),
+                                  Visibility(
+                                    visible: isSelectedDoctor,
+                                    child: const Text('Vui lòng chọn bác sĩ', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12)),
                                   ),
                                   //     : CustomDropdownButtonDefault(
                                   //   type: 1,
@@ -308,24 +315,24 @@ class _BookingPageState extends State<BookingPage> {
                                     child: const Text('Vui lòng chọn thời gian khám phù hợp', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12)),
                                   ),
                                   const SizedBox(height: 10),
-                                  CustomDropdownButton(
-                                    isRefresh: viewModel.isRefresh,
-                                    placeholderText: viewModel.holderTypeText,
-                                    icons: Icons.sick_outlined,
-                                    data: viewModel.listBookingType,
-                                    isValidate: isSelectedType,
-                                    type: 1,
-                                    onSelectedCallback: (typeId) {
-                                      viewModel.bookingModel.typeId = typeId;
-                                      setState(() {
-                                        isSelectedType = viewModel.isValidate(viewModel.bookingModel.typeId);
-                                      });
-                                    },
-                                  ),
-                                  Visibility(
-                                    visible: isSelectedType,
-                                    child: const Text('Vui lòng chọn đầu bệnh', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12)),
-                                  ),
+                                  // CustomDropdownButton(
+                                  //   isRefresh: viewModel.isRefresh,
+                                  //   placeholderText: viewModel.holderTypeText,
+                                  //   icons: Icons.sick_outlined,
+                                  //   data: viewModel.listBookingType,
+                                  //   isValidate: isSelectedType,
+                                  //   type: 1,
+                                  //   onSelectedCallback: (typeId) {
+                                  //     viewModel.bookingModel.typeId = typeId;
+                                  //     setState(() {
+                                  //       isSelectedType = viewModel.isValidate(viewModel.bookingModel.typeId);
+                                  //     });
+                                  //   },
+                                  // ),
+                                  // Visibility(
+                                  //   visible: isSelectedType,
+                                  //   child: const Text('Vui lòng chọn đầu bệnh', style: TextStyle(color: Colors.red, fontFamily: 'Roboto', fontSize: 12)),
+                                  // ),
                                   Padding(
                                       padding: const EdgeInsets.only(top: 15, bottom: 10),
                                       child: RichText(
@@ -381,7 +388,7 @@ class _BookingPageState extends State<BookingPage> {
                                               if (_bookingFormKey.currentState!.validate()
                                                   // && viewModel.bookingModel.branchId != null
                                                   && viewModel.bookingModel.doctorId != null
-                                                  && viewModel.bookingModel.typeId != null
+                                                  && viewModel.bookingModel.doctorId != 0
                                                   && viewModel.bookingModel.timeSlot != 0
                                                   && viewModel.bookingModel.timeSlot != null
                                               ) {
@@ -389,26 +396,29 @@ class _BookingPageState extends State<BookingPage> {
                                                   setState((){
                                                     isSelectedType = false;
                                                     isSelectedTime = false;
-                                                    isSelectedBranch = false;
+                                                    isSelectedDoctor = false;
                                                     _reason.clear();
                                                     controller.jumpTo(0.0);
                                                   });
-                                                  showAlertSuccessBooking(context,() {
+                                                  showAlertSuccessBooking(
+                                                    context: context,
+                                                        onTap: () {
                                                     Navigator.of(context).pop();
                                                     Navigator.of(context).pop();
-                                                  },);
+                                                  },
+                                                  );
                                                   context.hideKeyboard();
-                                                  // Reset data trang đặt lịch
                                                   Provider.of<ListHistoryViewModel>(context, listen: false).refreshData(needShowLoading: false);
+                                                  // Reset data trang đặt lịch
                                                 }, errorCallback: (message) {
                                                   context.showMessage(message, type: MessageType.error);
                                                 });
                                               } else {
                                                 setState(() {
                                                   context.showMessage('Vui lòng điền đầy đủ thông tin', type: MessageType.error);
-                                                  isSelectedBranch = viewModel.isValidate(viewModel.bookingModel.branchId);
+                                                  isSelectedDoctor= viewModel.isValidate(viewModel.bookingModel.doctorId);
                                                   isSelectedTime = viewModel.isValidate(viewModel.bookingModel.timeSlot);
-                                                  isSelectedType = viewModel.isValidate(viewModel.bookingModel.typeId);
+                                                  // isSelectedType = viewModel.isValidate(viewModel.bookingModel.typeId);
                                                 });
                                               }
                                             },

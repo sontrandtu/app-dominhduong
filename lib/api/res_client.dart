@@ -5,16 +5,11 @@ import 'package:dominhduong/api/response_model/login_response.dart';
 import 'package:dominhduong/app_config.dart';
 import 'package:dominhduong/model/article_model.dart';
 import 'package:dominhduong/model/booking_model.dart';
-import 'package:dominhduong/model/booking_type_model.dart';
-import 'package:dominhduong/model/branch_model.dart';
-import 'package:dominhduong/model/category_model.dart';
-import 'package:dominhduong/model/company_model.dart';
 import 'package:dominhduong/model/history_model.dart';
 import 'package:dominhduong/model/location_model.dart';
 import 'package:dominhduong/model/timeslot_model.dart';
 import 'package:dominhduong/model/doctor_model.dart';
-import 'package:dominhduong/model/user/user_info_model.dart';
-import 'package:dominhduong/model/video/video_model.dart';
+import 'package:dominhduong/model/user_info_model.dart';
 import 'package:dominhduong/model/widget_model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -77,11 +72,6 @@ abstract class RestClient {
     @Query('limit') int? limit
   });
 
-  @GET('/branch/{id}/doctors')
-  Future<HttpResponse<ListResponse<List<DoctorModel>>>>getDoctorsByBranch({
-    @Path('id') int? id
-  });
-
   @GET('/doctors')
   Future<HttpResponse<ListResponse<List<DoctorModel>>>> getAllDoctor();
 
@@ -114,16 +104,13 @@ abstract class RestClient {
   });
   //====================== Location Api =====================//
 
-  //======================= Order Api ======================//
 
   //====================== Booking Api =====================//
   @MultiPart()
   @POST('/bookings')
   Future<HttpResponse<BookingModel>> bookingTreatment({
-    @Part(name: "branch_id") int? branchId,
     @Part(name: "doctor") int? doctor,
     @Part(name: "time_slot") int? timeSlot,
-    @Part(name: "type_id") int? typeId,
     @Part(name: "username") String? username,
     @Part(name: "phone") String? phone,
     @Part(name: "birthday") String? birthday,
@@ -131,19 +118,9 @@ abstract class RestClient {
     @Part(name: "reason") String? reason
   });
 
-  @GET('/companies')
-  Future<HttpResponse<ListResponse<List<CompanyModel>>>> getCompanies();
-
-  @GET('/branches?order_by=sequence&order=desc')
-  Future<HttpResponse<ListResponse<List<BranchModel>>>> getBranches({
-    @Query('children') int? children
-  });
-
   @GET('/time-slot')
   Future<HttpResponse<ListResponse<List<TimeSlotModel>>>> getTimeSlots();
 
-  @GET('/booking-type')
-  Future<HttpResponse<ListResponse<List<BookingTypeModel>>>> getListBookingType();
 
   @GET('/bookings')
   Future<HttpResponse<ListResponse<List<HistoryModel>>>> getListHistory({
@@ -152,17 +129,6 @@ abstract class RestClient {
   });
   //====================== Booking Api =====================//
 
-  //====================== Category Api ====================//
-  @GET('/category-list/{id}')
-  Future<HttpResponse<ListResponse<List<CategoryModel>>>> getListCategory({
-    @Path('id') int? id
-  });
-
-  @GET('/categories/{id}')
-  Future<HttpResponse<CategoryModel>> getCategoryDetail({
-    @Path('id') int? id
-  });
-  //====================== Category Api ====================//
 
   //====================== Article Api =====================//
   @GET('/articles/{id}')
@@ -172,13 +138,6 @@ abstract class RestClient {
 
   @GET('/article-related/{id}')
   Future<HttpResponse<ListResponse<List<ArticleModel>>>> getArticleRelated({
-    @Path('id') int? id,
-    @Query('page') int? page,
-    @Query('limit') int? limit
-  });
-
-  @GET('/categories/{id}/articles')
-  Future<HttpResponse<ListResponse<List<ArticleModel>>>> getArticleByCategory({
     @Path('id') int? id,
     @Query('page') int? page,
     @Query('limit') int? limit
@@ -201,21 +160,4 @@ abstract class RestClient {
   });
   //====================== Article Api =====================//
 
-  //====================== Videos Api =====================//
-  @GET('/search?')
-  Future<HttpResponse<ListResponse<List<VideoModel>>>> getYoutubeVideoByPart({
-    @Query('key') String? key,
-    @Query('channelId') String? channelID,
-    @Query('part') String? part,
-    @Query('oder') String? oder,
-    @Query('maxResult') int? maxResults,
-  });
-
-  @GET('/search?')
-  Future<HttpResponse<VideoModel>> getVideoDetail({
-    @Query('part') String? part,
-    @Query('channelId') String? channelID,
-    @Query('key') String? key,
-  });
-  //====================== Videos Api =====================//
 }

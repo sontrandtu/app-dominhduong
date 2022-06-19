@@ -5,15 +5,12 @@ import 'package:dominhduong/page_routes.dart';
 import 'package:dominhduong/preference/preference.dart';
 import 'package:dominhduong/repository/article_repository.dart';
 import 'package:dominhduong/repository/booking_repository.dart';
-import 'package:dominhduong/repository/category_repository.dart';
 import 'package:dominhduong/repository/doctor_repository.dart';
 import 'package:dominhduong/repository/home_repository.dart';
-import 'package:dominhduong/repository/hotline_repository.dart';
 import 'package:dominhduong/repository/location_repository.dart';
 import 'package:dominhduong/repository/sign_in_repository.dart';
 import 'package:dominhduong/repository/user_repository.dart';
 import 'package:dominhduong/repository/widget_repository.dart';
-import 'package:dominhduong/repository/youtube_repository.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_page.dart';
 import 'package:dominhduong/screens/doctor/doctor_detail_view_model.dart';
 import 'package:dominhduong/screens/doctor/list_doctor_page.dart';
@@ -77,13 +74,12 @@ void main() async {
             Provider(create: (_) => HomeRepository()),
             Provider(create: (_) => WidgetRepository()),
             Provider(create: (_) => SignInRepository()),
-            Provider(create: (_) => HotlineRepository()),
             Provider(create: (_) => BookingRepository()),
-            Provider(create: (_) => CategoryRepository()),
+            // Provider(create: (_) => CategoryRepository()),
             Provider(create: (_) => ArticleRepository()),
             Provider(create: (_) => DoctorRepository()),
             Provider(create: (_) => UserRepository()),
-            Provider(create: (_) => YoutubeRepository()),
+            // Provider(create: (_) => YoutubeRepository()),
             Provider(create: (_) => LocationRepository()),
             ChangeNotifierProvider(create: (_) => AppProvider()),
             ChangeNotifierProvider(create: (_) => historyVM),
@@ -247,10 +243,10 @@ class MyApp extends StatelessWidget {
         );
       },
       PageRoutes.treatment: (BuildContext context) {
-        final arguments = ModalRoute.of(context)?.settings.arguments as List;
-        int branchId = arguments.isNotEmpty ? arguments[0] : 0;
-        int doctorId = arguments.isNotEmpty ? arguments[1] : 0;
-        return ChangeNotifierProvider(create: (_) => BookingViewModel(repo: context.read(), doctorRepo: context.read<DoctorRepository>(), userRepo: context.read<UserRepository>(), branchId: branchId, doctorId: doctorId), child: const BookingPage(type: 'main'));
+        final int arguments = ModalRoute.of(context)?.settings.arguments as int;
+        // int branchId = arguments.isNotEmpty ? arguments[0] : 0;
+        // int doctorId = arguments.isNotEmpty ? arguments[1] : 0;
+        return ChangeNotifierProvider(create: (_) => BookingViewModel(repo: context.read(), doctorRepo: context.read<DoctorRepository>(), userRepo: context.read<UserRepository>(), doctorId: arguments), child: const BookingPage(type: 'main'));
       },
     };
   }

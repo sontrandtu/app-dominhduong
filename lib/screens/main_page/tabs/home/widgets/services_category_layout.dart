@@ -59,8 +59,7 @@ class _ServicesCategoryLayoutState extends State<ServicesCategoryLayout> {
                 childAspectRatio: 180 / 160,
               ),
             ),
-          )
-              : GridView.builder(
+          ) : GridView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),

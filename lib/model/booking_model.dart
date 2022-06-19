@@ -10,10 +10,6 @@ class BookingModel {
   String? username;
   String? phone;
   String? birthday;
-  @JsonKey(name: 'type_id')
-  int? typeId;
-  @JsonKey(name: 'branch_id')
-  int? branchId;
   @JsonKey(name: 'doctor_id')
   int? doctorId;
   @JsonKey(name: 'appointment_date')
@@ -26,8 +22,6 @@ class BookingModel {
     this.username,
     this.phone,
     this.birthday,
-    this.typeId,
-    this.branchId,
     this.doctorId,
     this.appointmentDate,
     this.timeSlot,

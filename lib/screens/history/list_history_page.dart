@@ -38,7 +38,7 @@ class _ListHistoryPageState extends State<ListHistoryPage> with AutomaticKeepAli
               titleButton: 'Đặt lịch'.toUpperCase(),
               title: 'Bạn chưa có lịch sử đặt lịch khám - trị liệu',
               onPress: (){
-                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: []).then((value) => viewModel.refreshData());
+                Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: 0).then((value) => viewModel.refreshData());
               },
             ) : SmartRefresher(
               controller: _refreshController,

@@ -273,7 +273,7 @@ class _BookingPageState extends State<BookingPage> {
                                       isRefresh: viewModel.isRefresh,
                                       onDateSelectedCallback: (day) {
                                         viewModel.bookingModel.appointmentDate = day;
-                                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
                                           setState(() {
                                             daySelected = int.parse(viewModel.bookingModel.appointmentDate!.substring(0,2));
                                             monthSelected = int.parse(viewModel.bookingModel.appointmentDate!.substring(3,5));

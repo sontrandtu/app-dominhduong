@@ -45,6 +45,10 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       placeholderText = oldWidget.placeholderText;
       selectedIndex = -1;
     }
+    if(oldWidget.placeholderText != widget.placeholderText) {
+      placeholderText = widget.placeholderText;
+      selectedIndex = -1;
+    }
   }
 
   _showModalBottomSheet(context) {

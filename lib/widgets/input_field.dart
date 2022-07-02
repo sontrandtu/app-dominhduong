@@ -57,7 +57,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
   void initState() {
     super.initState();
     _obscureText = widget.obscureText;
-    WidgetsBinding.instance?.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_){
       textEditingController.text = widget.value ?? '';
     });
   }
@@ -65,7 +65,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
   @override
   void didUpdateWidget(covariant CustomInputField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance?.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_){
       if (oldWidget.value != widget.value) {
         textEditingController.text = widget.value ?? '';
       }

@@ -57,13 +57,18 @@ class BookingViewModel extends BaseViewModel {
     await loadUserInfo();
     await loadDoctors();
 
+
     if(doctorId != 0) {
       bookingModel.doctorId = doctorId;
       // int bIdx = branches.indexWhere((element) => element.id == branchId);
       // if(bIdx > -1) branches[bIdx].isSelected = true;
-      await loadDoctors();
+      // await loadDoctors();
       int dIdx = doctors.indexWhere((element) => element.id == doctorId);
-      if(dIdx > -1) doctors[dIdx].isSelected = true;
+      if(dIdx > -1) {
+        doctors[dIdx].isSelected = true;
+        holderDoctorText = doctors[dIdx].name ?? '';
+        print(holderDoctorText);
+      }
     }
 
     onLoadedCallback?.call();

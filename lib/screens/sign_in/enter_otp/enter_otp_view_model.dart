@@ -17,7 +17,7 @@ class EnterOTPViewModel extends BaseViewModel {
 
   EnterOTPViewModel({required this.repo, required this.phoneNumber, required this.otp}) : super(repo) {
     startTimer();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context!.showMessage(otp, type: MessageType.success);
     });
   }

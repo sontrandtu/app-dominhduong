@@ -25,7 +25,7 @@ class _ListServicePageState extends State<ListServicePage> {
     final viewModel = context.watch<ListServiceViewModel>();
     return Scaffold(
       appBar: PageAppBarComp(title: "Dịch vụ".toUpperCase()),
-      backgroundColor: const Color(0xffffffff),
+      backgroundColor: Color(0xFFEFECEC),
       body: SafeArea(
         child: Stack(
           children: [
@@ -92,7 +92,7 @@ class _ListServicePageState extends State<ListServicePage> {
                                         height: 42,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: []);
+                                            Navigator.of(context, rootNavigator: true).pushNamed(PageRoutes.treatment, arguments: 0);
                                           },
                                           child: const Text(
                                               'ĐẶT LỊCH',

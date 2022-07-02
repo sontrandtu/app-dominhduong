@@ -59,7 +59,7 @@ extension SlugExtension on Slug{
       case Slug.productPage:
         return 'do-minh-gia-quy';
       case Slug.traditionalMedicinePage:
-        return 'bai-thuoc-gia-truyen';
+        return 'bai-thuoc-dieu-tri';
       case Slug.servicesPage:
         return 'dich-vu';
       case Slug.videosPage:

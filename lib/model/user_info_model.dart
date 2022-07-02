@@ -37,7 +37,26 @@ class UserInfoModel {
   @JsonKey(name: 'topic_of_interest_ids')
   late List<int>? topicOfInterestIds;
 
-  UserInfoModel({this.email,this.id, this.provinceId, this.districtId, this.wardId, this.provinceName, this.districtName, this.wardName, this.name, this.phone, this.mobile, this.token, this.image, this.birthday, this.street, this.gender, this.topicIds, this.topicOfInterestIds});
+  UserInfoModel({
+    this.email,
+    this.id,
+    this.provinceId,
+    this.districtId,
+    this.wardId,
+    this.provinceName,
+    this.districtName,
+    this.wardName,
+    this.name,
+    this.phone,
+    this.mobile,
+    this.token,
+    this.image,
+    this.birthday,
+    this.street,
+    this.gender,
+    this.topicIds,
+    this.topicOfInterestIds
+  });
 
   String get imageUrl {
     return image != null ? AppConfig.prefixUrl + image! : '';

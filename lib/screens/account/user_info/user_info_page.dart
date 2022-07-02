@@ -342,7 +342,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         ),
                         onPressed: () {
                           viewModel.loadFistTime = false;
-                          viewModel.onUpdateData();
+                          viewModel.onUpdateData(
+                              successCallback: (value) async{
+                                context.showMessage('Cập nhật hồ sơ cá nhân thành công!',type: MessageType.success);
+                                Navigator.of(context).pop();
+                              },
+                              errorCallback: (error) {
+                                context.showMessage(error,type: MessageType.error);
+                              }
+                          );
                         },
                       ),
                     ),

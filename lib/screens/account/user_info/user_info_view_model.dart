@@ -81,23 +81,27 @@ class UserInfoViewModel extends BaseViewModel{
     setLoading = false;
   }
 
-  onUpdateData() {
+  onUpdateData({SuccessCallback? successCallback, ErrorCallback? errorCallback}) async {
     setLoading = true;
     if(relativeFormKey!.currentState!.validate()
         && userInfoModel?.provinceId != null
         && userInfoModel?.districtId != null
         && userInfoModel?.wardId != null
+        && userInfoModel?.provinceId != 0
+        && userInfoModel?.districtId != 0
+        && userInfoModel?.wardId != 0
         && userInfoModel?.gender != null
         && userInfoModel?.street != null){
-      updateUserInfo(
-          successCallback: (value) async{
-            context!.showMessage('Cập nhật hồ sơ cá nhân thành công!',type: MessageType.success);
-            Navigator.of(context!).pop();
-          },
-          errorCallback: (error) {
-            context!.showMessage(error,type: MessageType.error);
-          }
-      );
+      final response = await userRepo.updateUserInfo(image: selectedImageFile, userInfoModel: userInfoModel!).catchError((onError) {
+        setLoading = false;
+        showMessage('Có lỗi hệ thống xảy ra!');
+      });
+      if (response.isOk) {
+        userInfoModel = response.data;
+        successCallback?.call(userInfoModel);
+      } else {
+        errorCallback?.call(response.message);
+      }
       notifyListeners();
     } else {
       isProvince = isValidate(userInfoModel?.provinceId);

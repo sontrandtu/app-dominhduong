@@ -231,7 +231,7 @@ class _BookingPageState extends State<BookingPage> {
                                     icons: Icons.perm_contact_calendar_outlined,
                                     data: viewModel.doctors,
                                     isValidate: isSelectedDoctor,
-                                    type: 1,
+                                    type: 2,
                                     onSelectedCallback: (doctorId) {
                                       viewModel.bookingModel.doctorId = doctorId;
                                           setState(() {

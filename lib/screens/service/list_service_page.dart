@@ -25,7 +25,7 @@ class _ListServicePageState extends State<ListServicePage> {
     final viewModel = context.watch<ListServiceViewModel>();
     return Scaffold(
       appBar: PageAppBarComp(title: "Dịch vụ".toUpperCase()),
-      backgroundColor: Color(0xFFEFECEC),
+      backgroundColor: const Color(0xFFEFECEC),
       body: SafeArea(
         child: Stack(
           children: [
@@ -48,9 +48,7 @@ class _ListServicePageState extends State<ListServicePage> {
                     _refreshController.loadComplete();
                   });
                 },
-                child: viewModel.showEmptyLayout
-                    ? const NoResultPage()
-                    : SingleChildScrollView(
+                child: viewModel.showEmptyLayout ? const NoResultPage() : SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   physics: const ClampingScrollPhysics(),
                   child: ListView.separated(
@@ -83,7 +81,7 @@ class _ListServicePageState extends State<ListServicePage> {
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
-                                        medicine.description!,
+                                        medicine.description ?? '',
                                         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, height: 1.4),
                                       ),
                                       const SizedBox(height: 15),

@@ -30,8 +30,7 @@ class _ServicesCategoryLayoutState extends State<ServicesCategoryLayout> {
         Padding(
           padding:
           const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
-          child: widget.articles.isEmpty
-              ? Shimmer.fromColors(
+          child: widget.articles.isEmpty ? Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
             child: GridView.builder(

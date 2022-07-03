@@ -58,9 +58,7 @@ class _ListNewsPageState extends State<ListNewsPage> {
                       _refreshController.loadComplete();
                     });
                   },
-                  child: viewModel.showEmptyLayout
-                      ? const NoResultPage()
-                      : SingleChildScrollView(
+                  child: viewModel.showEmptyLayout ? const NoResultPage() : SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     physics: const ClampingScrollPhysics(),
                     padding: const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 30),
